@@ -7,22 +7,33 @@ import styles from '../modules/styling-modules/ImageContainer.module.css'
 
 function App() {
 
+  // const [pointer, setPointer] = useState(0);
+
   useEffect(() => {
-    const myImage = document.querySelector('#img-container');
-    // const myBody = document.querySelector('window');
+    const myImage = document.querySelector('#universe113');
+    const myPointer = document.querySelector('#pointer-target');
 
     myImage.addEventListener('click', function(e) {
-      let foo = e.clientX;
-      let bar = e.clientY;
+      let foo = e.offsetX;
+      let bar = e.offsetY;
 
-      console.log(foo, bar)
+      myPointer.style.position = 'absolute'
+      myPointer.style.border = '2px solid white'
+      myPointer.style.width = '50px'
+      myPointer.style.height = '50px'
+      myPointer.style.left = foo -25 + 'px';
+      myPointer.style.top = bar + 5 + 'px';
     })
   })
+
+  const test = function(e) {
+    console.log(e.offsetX, e.offsetY);
+  }
 
   return (
     <div className="App" >
       <Navbar />
-      <ImgContainer />
+      <ImgContainer clicker={test} />
     </div>
   );
 }
