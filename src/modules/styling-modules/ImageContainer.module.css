@@ -10,3 +10,13 @@
 /* .navbar {
   position: absolute;
 } */
+
+.universe-container {
+  /* height: 300vh; */
+  /* object-fit: fill; */
+}
+
+.universe-image {
+  min-width: 100%;
+  min-height: 100%;
+}

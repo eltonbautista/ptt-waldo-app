@@ -1,3 +1,11 @@
+Assets used: 
+Bender: https://icons8.com/icon/YV_2mLwXMWyM/futurama-bender" by Icons 8
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
