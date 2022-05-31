@@ -1,12 +1,13 @@
 import '../modules/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImageContainer';
-import PointerTarget from './PointerTarget';
 import { useEffect, useState } from 'react';
 import styles from '../modules/styling-modules/ImageContainer.module.css'
+import { grabDocs } from '../firebase/firebase-config';
+
 
 function App() {
-  
+
   useEffect(() => {
     const myImage = document.querySelector('#universe113');
     const myPointer = document.querySelector('#pointer-target');
