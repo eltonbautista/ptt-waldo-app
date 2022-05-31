@@ -2,7 +2,8 @@ import React from "react";
 import styles from '../modules/styling-modules/ImageContainer.module.css'
 
 function PointerTarget(props) {
-
+  // const myButtonHandler = props.buttonHandler;
+  // Set onClick at each button like this: myButtonHandler(...args); args being left, top, etc.
   const initialPointerState = {
     display: 'none',
     position: 'absolute',
@@ -13,9 +14,9 @@ function PointerTarget(props) {
   return (
     <div id="pointer-target" style={initialPointerState} data-pointer-target>
       <div id="waldo-button-container" className={styles['waldo-container']}>
-        <button data-waldo>Piranha Plant</button>
-        <button data-waldo>Bender</button>
-        <button data-waldo>R2D2</button>
+        <button onClick={props.buttonHandler} data-waldo>Piranha Plant</button>
+        <button onClick={props.buttonHandler} data-waldo>Bender</button>
+        <button onClick={props.buttonHandler} data-waldo>R2D2</button>
       </div>
       
     </div>
