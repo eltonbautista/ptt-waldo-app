@@ -13,12 +13,14 @@
 
 .universe-container {
   /* height: 300vh; */
+  /* position: absolute; */
   /* object-fit: fill; */
 }
 
 .universe-image {
   min-width: 100%;
   min-height: 100%;
+  /* position: absolute; */
 }
 
 .waldo-container {

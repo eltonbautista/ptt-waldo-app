@@ -2,8 +2,8 @@
   display: grid;
   grid-auto-flow: column;
   background-color: rgba(255, 0, 0, 0.202);
-  padding: 10px;
-  position: fixed;
+  /* padding: 10px; */
+  position: absolute;
   width: 100%;
 }
 

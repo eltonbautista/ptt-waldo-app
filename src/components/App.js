@@ -13,13 +13,20 @@ function App() {
     const myPointer = document.querySelector('#pointer-target');
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
+    const myApp = document.querySelector('.App');
+
+
+
 
     function myImageHandler(e) {
+      const coordinates = myImage.getBoundingClientRect();
       let foo = e.offsetX;
       let bar = e.offsetY;
+      myPointer.style.left = foo - 25 + 'px';
+      myPointer.style.top = bar - 25 + 'px';
+
       console.log(foo, bar);
-      myPointer.style.left = foo -25 + 'px';
-      myPointer.style.top = bar + -25 + 'px';
+      
      if (waldoButtonContainer.style.visibility === 'visible') {
         myPointer.style.visibility = 'hidden';
         waldoButtonContainer.style.visibility = 'hidden';
