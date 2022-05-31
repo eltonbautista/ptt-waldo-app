@@ -20,3 +20,10 @@
   min-width: 100%;
   min-height: 100%;
 }
+
+.waldo-container {
+  visibility: hidden;
+  position: absolute;
+  left: 60px;
+  top: 60px;
+}

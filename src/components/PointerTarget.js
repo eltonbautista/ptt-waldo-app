@@ -10,7 +10,14 @@ function PointerTarget(props) {
     height: '50px',
   }
   return (
-    <div id="pointer-target" style={initialPointerState} data-pointer-target></div>
+    <div id="pointer-target" style={initialPointerState} data-pointer-target>
+      <div id="waldo-button-container" className={styles['waldo-container']}>
+        <button data-waldo>Pirannha Plant</button>
+        <button data-waldo>Bender</button>
+        <button data-waldo>R2D2</button>
+      </div>
+      
+    </div>
   )
 }
 

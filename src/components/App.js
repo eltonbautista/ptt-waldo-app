@@ -10,14 +10,24 @@ function App() {
   useEffect(() => {
     const myImage = document.querySelector('#universe113');
     const myPointer = document.querySelector('#pointer-target');
+    const waldoButtonContainer = document.querySelector('#waldo-button-container');
+    const waldoButtons = document.querySelectorAll('button[data-waldo]');
+
+    waldoButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        waldoButtonContainer.style.visibility = 'hidden';
+      })
+    })
 
     myImage.addEventListener('click', function(e) {
       let foo = e.offsetX;
       let bar = e.offsetY;
       myPointer.style.left = foo -25 + 'px';
-      myPointer.style.top = bar + 5 + 'px';
-    })
-  })
+      myPointer.style.top = bar + -25 + 'px';
+      waldoButtonContainer.style.visibility = 'visible';
+    });
+
+  });
 
   return (
     <div className="App" >
