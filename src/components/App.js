@@ -14,21 +14,35 @@ function App() {
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
 
+    function myImageHandler(e) {
+      let foo = e.offsetX;
+      let bar = e.offsetY;
+      myPointer.style.left = foo -25 + 'px';
+      myPointer.style.top = bar + -25 + 'px';
+     if (waldoButtonContainer.style.visibility === 'visible') {
+        myPointer.style.visibility = 'hidden';
+        waldoButtonContainer.style.visibility = 'hidden';
+      } else {
+        waldoButtonContainer.style.visibility = 'visible';
+        myPointer.style.visibility = 'visible';
+      }
+      
+  }
+
     waldoButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
         waldoButtonContainer.style.visibility = 'hidden';
       })
     })
 
-    myImage.addEventListener('click', function(e) {
-      let foo = e.offsetX;
-      let bar = e.offsetY;
-      myPointer.style.left = foo -25 + 'px';
-      myPointer.style.top = bar + -25 + 'px';
-      waldoButtonContainer.style.visibility = 'visible';
-    });
+    myImage.addEventListener('click', myImageHandler);
 
-  });
+    
+
+    return function cleanup() {
+      myImage.removeEventListener('click', myImageHandler);
+    }
+  }, []);
 
   return (
     <div className="App" >
