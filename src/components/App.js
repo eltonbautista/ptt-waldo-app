@@ -17,6 +17,7 @@ function App() {
     function myImageHandler(e) {
       let foo = e.offsetX;
       let bar = e.offsetY;
+      console.log(foo, bar);
       myPointer.style.left = foo -25 + 'px';
       myPointer.style.top = bar + -25 + 'px';
      if (waldoButtonContainer.style.visibility === 'visible') {
@@ -26,21 +27,23 @@ function App() {
         waldoButtonContainer.style.visibility = 'visible';
         myPointer.style.visibility = 'visible';
       }
-      
   }
 
+    function waldoButtonHandler(e) {
+      waldoButtonContainer.style.visibility = 'hidden';
+    }
+
     waldoButtons.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        waldoButtonContainer.style.visibility = 'hidden';
-      })
+      button.addEventListener('click', waldoButtonHandler)
     })
 
     myImage.addEventListener('click', myImageHandler);
 
-    
-
     return function cleanup() {
       myImage.removeEventListener('click', myImageHandler);
+      waldoButtons.forEach((button) => {
+        button.removeEventListener('click', waldoButtonHandler)
+      })
     }
   }, []);
 
