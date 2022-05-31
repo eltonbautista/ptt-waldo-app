@@ -4,6 +4,7 @@ import styles from '../modules/styling-modules/ImageContainer.module.css'
 function PointerTarget(props) {
 
   const initialPointerState = {
+    display: 'none',
     position: 'absolute',
     border: '2px dotted white',
     width: '50px',

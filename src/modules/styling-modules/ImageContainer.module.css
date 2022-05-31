@@ -14,7 +14,7 @@
 .universe-container {
   /* height: 300vh; */
   /* position: absolute; */
-  /* object-fit: fill; */
+  object-fit: cover;
 }
 
 .universe-image {
