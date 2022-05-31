@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import ImgContainer from './ImageContainer';
 import { useEffect, useState } from 'react';
 import styles from '../modules/styling-modules/ImageContainer.module.css'
-import { grabDocs } from '../firebase/firebase-config';
+import { myWaldosArray } from '../firebase/firebase-config';
 
 
 function App() {
@@ -14,13 +14,14 @@ function App() {
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
 
+
     function myImageHandler(e) {
       let foo = e.offsetX;
       let bar = e.offsetY;
       myPointer.style.left = foo - 25 + 'px';
       myPointer.style.top = bar - 25 + 'px';
-
-      console.log(foo, bar);
+      console.log(myWaldosArray);
+      // console.log(foo, bar);
       
      if (waldoButtonContainer.style.visibility === 'visible') {
         myPointer.style.display = 'none';

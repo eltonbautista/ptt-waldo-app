@@ -28,14 +28,16 @@ const db = getFirestore(app);
 const colRef = collection(db, 'waldos');
 
 // Get collection data
-export async function grabDocs() {
+export const myWaldosArray = [];
+
+  async function grabDocs() {
   const querySnapshot = await getDocs(colRef);
-  const waldosArray = [];
   querySnapshot.forEach((doc) => {
-    waldosArray.push({...doc.data(), id: doc.id})
+    myWaldosArray.push({...doc.data(), id: doc.id})
   });
-  return waldosArray;
+  return myWaldosArray;
 }
+grabDocs();
 
 // x and y positions of my plants as denoted in console.log(foo, bar) are just left & top values + 25px
 // To confirm that waldo is selected, just need to use if statement such as if(clicked point <= top + 25px + 50px ) 
