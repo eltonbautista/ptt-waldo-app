@@ -63,28 +63,41 @@ function App() {
     }
   }, [pointerState]);
 
-  function waldoButtonHandler() {
+  function waldoButtonHandler(char) {
     const foo = (waldo) => {
-      return (pointerState.top >= (waldo.top - 20) && pointerState.top <= (waldo.top + 20) 
-      && pointerState.left >= (waldo.left - 30) && pointerState.left <= (waldo.left + 30))
+      if (!waldo) {
+        console.log('has not loaded');
+        return;
+      } else {
+        return (pointerState.top >= (waldo.top - 20) && pointerState.top <= (waldo.top + 20) 
+        && pointerState.left >= (waldo.left - 20) && pointerState.left <= (waldo.left + 20))
+      }
     };
+
     const targetBoundaries = waldoState;
     const [piranhaPlant, r2D2, bender] = targetBoundaries;
-    console.log(piranhaPlant.top, pointerState.top);
-    if (foo(piranhaPlant, 20, 30)) {
-      console.log('piranha plant hit');
-    } else if (foo(bender)) {
-      console.log('bender hit');
-    } else if (foo(r2D2)) {
-      console.log('R2D2 hit');
+
+    if (char === 'piranha plant') {
+      if (foo(piranhaPlant, 20, 30)) {
+        console.log(`${char} hit`);
+      } 
+    } else if (char === 'bender') {
+      if (foo(bender, 20, 30)) {
+        console.log(`${char} hit`);
+      } 
+    } else if (char === 'R2D2') {
+      if (foo(r2D2, 20, 30)) {
+        console.log(`${char} hit`);
+      }
     }
+    
   }
   
   // console.log(foo());
   return (
     <div className="App" >
       <Navbar />
-      <ImgContainer buttonHandler={waldoButtonHandler} />
+      <ImgContainer characters={waldoState} buttonHandler={waldoButtonHandler} />
     </div>
   );
 }

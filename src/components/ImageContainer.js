@@ -8,7 +8,7 @@ function ImgContainer(props) {
   return (
     <div className={styles['universe-container']} onClick={props.clicker} data-img-container id="img-container">
       <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" useMap="#universe113" />
-      <PointerTarget buttonHandler={props.buttonHandler} />
+      <PointerTarget characters={props.characters} buttonHandler={props.buttonHandler} />
     </div>
   )
 }
