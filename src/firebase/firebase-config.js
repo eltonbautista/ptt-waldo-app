@@ -27,25 +27,25 @@ const db = getFirestore(app);
 // Collection ref
 const colRef = collection(db, 'waldos');
 
-// Get collection data
+// Array of objects
 export const myWaldosArray = [];
 
 // Method for changing isSelected property to true;
 const changePropValue = function(obj, propertyString, newValue) {
   obj[propertyString] = newValue;
 }
+// Get collection data
+export async function grabDocs() {
+  try {
+    const querySnapshot = await getDocs(colRef);
+    querySnapshot.forEach((doc) => {
+       myWaldosArray.push({...doc.data(), id: doc.id, changePropValue})
+    });
+  } catch {
+    console.log('An error has occurred whilst trying to retrieve information...')
+  }
 
-  export async function grabDocs() {
-    try {
-      const querySnapshot = await getDocs(colRef);
-      querySnapshot.forEach((doc) => {
-        myWaldosArray.push({...doc.data(), id: doc.id, changePropValue})
-      });
-    
-    } catch {
-      console.log('An error has occurred whilst trying to retrieve information...')
-    }
-  
 }
 grabDocs();
+
 
