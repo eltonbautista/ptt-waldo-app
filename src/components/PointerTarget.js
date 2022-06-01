@@ -46,7 +46,7 @@ export function Marker(props) {
     top,
   };
 
-  const myUniqueKey = markerName;
+  const myUniqueKey = markerName + '';
 
   return (
     <div key={myUniqueKey} style={initialMarkerState} data-marker={markerName}></div>
