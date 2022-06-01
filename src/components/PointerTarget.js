@@ -34,25 +34,22 @@ function PointerTarget(props) {
 }
 
 export function Marker(props) {
-  
+  console.log(props);
   const { myKey, markerName, left, top } = props;
 
   const initialMarkerState = {
     position: 'absolute',
-    width: '20px',
-    height: '20px',
+    width: '40px',
+    height: '40px',
     border: '3px solid green',
     left,
     top,
   };
 
-  const myUniqueKey = markerName + top;
+  const myUniqueKey = markerName;
 
   return (
-      // <li className={markerName} key={myKey}>
-        <div style={initialMarkerState} data-marker={markerName}></div> 
-      // </li>
-         
+    <div key={myUniqueKey} style={initialMarkerState} data-marker={markerName}></div>
   )
 }
 

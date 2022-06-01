@@ -65,6 +65,8 @@ function App() {
     }
   }, [pointerState]);
   
+
+  // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
   function waldoButtonHandler(char) {
     const foo = (waldo) => {
       if (!waldo) {
@@ -76,29 +78,43 @@ function App() {
       }
     };
 
-    const targetBoundaries = waldoState;
-    const [piranhaPlant, r2D2, bender] = targetBoundaries;
+    const [piranhaPlant, r2D2, bender] = waldoState;
 
     if (char === 'piranha plant') {
       if (foo(piranhaPlant, 20, 30)) {
 
         if (!piranhaPlant.isSelected) {
-          setChildrenState([...childrenState, 
-          <Marker myKey={piranhaPlant.waldo} markerName={piranhaPlant.waldo} left={pointerState.left} top={pointerState.top} />]);
+          setChildrenState((prevState) => [...prevState, 
+            <Marker myKey={piranhaPlant.waldo} markerName={piranhaPlant.waldo} left={pointerState.left} top={pointerState.top} />]);
+            console.log(childrenState)
         }
 
         piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
       } 
     } else if (char === 'bender') {
       if (foo(bender, 20, 30)) {
+        if (!bender.isSelected) {
+          setChildrenState([...childrenState, 
+          <Marker myKey={bender.waldo} markerName={bender.waldo} left={pointerState.left} top={pointerState.top} />]);
+        }
+
         bender.changePropValue(bender, 'isSelected', true);
       } 
+      
     } else if (char === 'R2D2') {
       if (foo(r2D2, 20, 30)) {
+        if (!r2D2.isSelected) {
+          setChildrenState([...childrenState, 
+          <Marker myKey={r2D2.waldo} markerName={r2D2.waldo} left={pointerState.left} top={pointerState.top} />]);
+        }
+
         r2D2.changePropValue(r2D2, 'isSelected', true);
       }
+      
     }
+    
     setWaldoState([...waldoState]);
+    console.log(waldoState)
   }
   
   return (
