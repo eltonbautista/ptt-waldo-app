@@ -6,7 +6,6 @@ import { myWaldosArray } from '../firebase/firebase-config';
 
 
 function App() {
-
   const initPointerState = 
   {
     top: 0,
@@ -62,7 +61,7 @@ function App() {
       })
     }
   }, [pointerState]);
-
+  
   function waldoButtonHandler(char) {
     const foo = (waldo) => {
       if (!waldo) {
@@ -79,21 +78,22 @@ function App() {
 
     if (char === 'piranha plant') {
       if (foo(piranhaPlant, 20, 30)) {
-        console.log(`${char} hit`);
+        piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
       } 
     } else if (char === 'bender') {
       if (foo(bender, 20, 30)) {
-        console.log(`${char} hit`);
+        bender.changePropValue(bender, 'isSelected', true);
       } 
     } else if (char === 'R2D2') {
       if (foo(r2D2, 20, 30)) {
-        console.log(`${char} hit`);
+        r2D2.changePropValue(r2D2, 'isSelected', true);
       }
     }
     
+    setWaldoState([...waldoState]);
+    console.log(waldoState);
   }
   
-  // console.log(foo());
   return (
     <div className="App" >
       <Navbar />

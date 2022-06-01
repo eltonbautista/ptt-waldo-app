@@ -30,15 +30,22 @@ const colRef = collection(db, 'waldos');
 // Get collection data
 export const myWaldosArray = [];
 
-  async function grabDocs() {
-  const querySnapshot = await getDocs(colRef);
-  querySnapshot.forEach((doc) => {
-    myWaldosArray.push({...doc.data(), id: doc.id})
-  });
-  return myWaldosArray;
+// Method for changing isSelected property to true;
+const changePropValue = function(obj, propertyString, newValue) {
+  obj[propertyString] = newValue;
+}
+
+  export async function grabDocs() {
+    try {
+      const querySnapshot = await getDocs(colRef);
+      querySnapshot.forEach((doc) => {
+        myWaldosArray.push({...doc.data(), id: doc.id, changePropValue})
+      });
+    
+    } catch {
+      console.log('An error has occurred whilst trying to retrieve information...')
+    }
+  
 }
 grabDocs();
 
-// x and y positions of my plants as denoted in console.log(foo, bar) are just left & top values + 25px
-// To confirm that waldo is selected, just need to use if statement such as if(clicked point <= top + 25px + 50px ) 
-// 50px because that's how big the pointer box is, so where the user clicks should be WITHIN 75px of pointer box
