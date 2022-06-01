@@ -20,6 +20,7 @@ function PointerTarget(props) {
     width: '50px',
     height: '50px',
   }
+
   return (
     <div id="pointer-target" style={initialPointerState} data-pointer-target>
       <div id="waldo-button-container" className={styles['waldo-container']}>
@@ -29,6 +30,29 @@ function PointerTarget(props) {
       </div>
       
     </div>
+  )
+}
+
+export function Marker(props) {
+  
+  const { myKey, markerName, left, top } = props;
+
+  const initialMarkerState = {
+    position: 'absolute',
+    width: '20px',
+    height: '20px',
+    border: '3px solid green',
+    left,
+    top,
+  };
+
+  const myUniqueKey = markerName + top;
+
+  return (
+      // <li className={markerName} key={myKey}>
+        <div style={initialMarkerState} data-marker={markerName}></div> 
+      // </li>
+         
   )
 }
 

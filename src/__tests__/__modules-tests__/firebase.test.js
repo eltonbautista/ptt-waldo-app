@@ -6,12 +6,12 @@ import { myWaldosArray, grabDocs } from "../../firebase/firebase-config";
 //   })
 // }
 
-describe('Tests for my waldo objects', () => {
+// describe('Tests for my waldo objects', () => {
 
-  it('myWaldosArray value should be >1 objects', async () => {
-    setTimeout(() => {
-      expect(myWaldosArray).toStrictEqual([{}, {}, {}]);
-    }, 1);
-  })
+//   it('myWaldosArray value should be >1 objects', async () => {
+//     setTimeout(() => {
+//       expect(myWaldosArray).toStrictEqual([{}, {}, {}]);
+//     }, 1);
+//   })
 
-});
+// });

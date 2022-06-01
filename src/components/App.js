@@ -3,9 +3,10 @@ import Navbar from './Navbar';
 import ImgContainer from './ImageContainer';
 import { useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
-
+import { Marker } from './PointerTarget';
 
 function App() {
+
   const initPointerState = 
   {
     top: 0,
@@ -16,6 +17,8 @@ function App() {
   // An array of my waldo objects, they will be passed down to the corresponding waldoButtonHandler
   // Each button handler will turn the passed down object's isSelected property to true if the parameters are within the pointer's bounds
   const [waldoState, setWaldoState] = useState(myWaldosArray);
+  const [childrenState, setChildrenState] = useState([]);
+
 
   useEffect(() => {
     const myImage = document.querySelector('#universe113');
@@ -78,6 +81,12 @@ function App() {
 
     if (char === 'piranha plant') {
       if (foo(piranhaPlant, 20, 30)) {
+
+        if (!piranhaPlant.isSelected) {
+          setChildrenState([...childrenState, 
+          <Marker myKey={piranhaPlant.waldo} markerName={piranhaPlant.waldo} left={pointerState.left} top={pointerState.top} />]);
+        }
+
         piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
       } 
     } else if (char === 'bender') {
@@ -89,15 +98,13 @@ function App() {
         r2D2.changePropValue(r2D2, 'isSelected', true);
       }
     }
-    
     setWaldoState([...waldoState]);
-    console.log(waldoState);
   }
   
   return (
-    <div className="App" >
+    <div className="App" data-testid='app' >
       <Navbar />
-      <ImgContainer characters={waldoState} buttonHandler={waldoButtonHandler} />
+      <ImgContainer characters={waldoState} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} />
     </div>
   );
 }

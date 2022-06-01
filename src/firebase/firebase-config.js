@@ -34,6 +34,8 @@ export const myWaldosArray = [];
 const changePropValue = function(obj, propertyString, newValue) {
   obj[propertyString] = newValue;
 }
+
+
 // Get collection data
 export async function grabDocs() {
   try {
