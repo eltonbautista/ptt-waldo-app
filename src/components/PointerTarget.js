@@ -34,7 +34,6 @@ function PointerTarget(props) {
 }
 
 export function Marker(props) {
-  console.log(props);
   const { myKey, markerName, left, top } = props;
 
   const initialMarkerState = {

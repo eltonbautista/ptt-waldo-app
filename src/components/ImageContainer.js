@@ -5,12 +5,11 @@ import styles from '../modules/styling-modules/ImageContainer.module.css';
 import { Marker } from "./PointerTarget";
 
 function ImgContainer(props) {
-  const { characters, clickCoords, buttonHandler, children } = props;
-  console.log(children)
+  const { characters, buttonHandler, children } = props;
   const mapList = () => {
     return children.map((child, i) =>  {
       return (
-        <li key={i}>
+        <li key={child.waldo + i}>
           <Marker myKey={child.waldo} markerName={child.waldo} left={child.left} top={child.top} />
         </li>
       )
