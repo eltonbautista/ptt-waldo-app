@@ -60,7 +60,7 @@ function App() {
     return () => {
       startButton.removeEventListener('click', handleStart);
     }
-  }, [minuteState, secondState, handleStart])
+  }, [minuteState, secondState, handleStart]);
 
   // Since waldo information is async, I thought useEffect might be most appropriate
   useEffect(() => {
@@ -113,7 +113,7 @@ function App() {
   // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
   // Takes a char argument which is used complementarily with the switch statement.
   function waldoButtonHandler(char) {
-    
+
     // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
     const foo = (waldo) => {
       if (!waldo) {
@@ -152,7 +152,7 @@ function App() {
   
   return (
     <div className="App" data-testid='app' >
-      <Navbar />
+      <Navbar seconds={secondState} minutes={minuteState} />
       <ImgContainer characters={myWaldosArray} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} />
     </div>
   );

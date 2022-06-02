@@ -5,7 +5,9 @@ import r2d2 from '../assets/r2d2.png';
 import bender from '../assets/bender.png';
 import styles from '../utils/styling-modules/Navbar.module.css';
 
-function Navbar() {
+function Navbar(props) {
+  const {seconds, minutes} = props;
+
   // console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
   return (
     <nav data-navbar className={styles.navbar}>
@@ -15,7 +17,7 @@ function Navbar() {
         <ImgInDiv src={r2d2} alt='r2d2 icon'></ImgInDiv>
         <button id="start-button" >START</button>
       </div>
-      <div>Timer</div>
+      <div>{`${minutes}: ${seconds < 10 ? '0' + seconds : seconds}`}</div>
     </nav>
   )
 }
