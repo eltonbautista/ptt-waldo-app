@@ -69,19 +69,26 @@ function App() {
     const myPointer = document.querySelector('#pointer-target');
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
+    const navWaldoImages = [...document.querySelectorAll('div[data-waldo-div')];
 
+    // console.log(myWaldosArray);
     // If I did const imageHandler = myImageHandler(waldoButtonContainer, myPointer, pointerState, setPointerState)
     // There would be no way to include the event argument, by creating a HOC I'm able to use the imageHandler's e param
     const imageHandler = function(e) {
       return myImageHandler(waldoButtonContainer, myPointer, pointerState, setPointerState, e);
     }
 
-    function waldoButtonHandler(e) {
+    function waldoButtonHandler(e, i) {
       waldoButtonContainer.style.visibility = 'hidden';
     }
 
-    waldoButtons.forEach((button) => {
-      button.addEventListener('click', waldoButtonHandler)
+    waldoButtons.forEach((button, i) => {
+      button.addEventListener('click', waldoButtonHandler);
+      if (childrenState.length === 0 || !waldoButtonContainer) {
+        return;
+      } else if (myWaldosArray[i].isSelected){
+          navWaldoImages[i].style.visibility = 'hidden';
+      }
     })
 
     myImage.addEventListener('click', imageHandler);

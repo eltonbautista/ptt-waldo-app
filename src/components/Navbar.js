@@ -11,9 +11,9 @@ function Navbar(props) {
   return (
     <nav data-navbar className={styles.navbar}>
       <div className={styles['navbar-div']}>
-        <ImgInDiv src={plant} alt='piranha plant icon'></ImgInDiv>
-        <ImgInDiv src={bender} alt='bender icon'></ImgInDiv>
-        <ImgInDiv src={r2d2} alt='r2d2 icon'></ImgInDiv>
+        <ImgInDiv src={plant} alt='piranha plant'></ImgInDiv>
+        <ImgInDiv src={r2d2} alt='R2D2'></ImgInDiv>
+        <ImgInDiv src={bender} alt='bender'></ImgInDiv>
         <button id="start-button" >START</button>
       </div>
       <div>{`${minutes}: ${seconds < 10 ? '0' + seconds : seconds}`}</div>
