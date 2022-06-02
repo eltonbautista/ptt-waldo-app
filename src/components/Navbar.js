@@ -6,6 +6,7 @@ import bender from '../assets/bender.png';
 import styles from '../utils/styling-modules/Navbar.module.css';
 
 function Navbar() {
+  // console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
   return (
     <nav data-navbar className={styles.navbar}>
       <div className={styles['navbar-div']}>

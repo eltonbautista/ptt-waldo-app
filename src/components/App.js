@@ -14,16 +14,15 @@ function App() {
 
   // Used to change where my target div is via style prop.
   const [pointerState, setPointerState] = useState(initPointerState);
+
   // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
+
   // Minute state
   const [minuteState, setMinuteState] = useState(0);
+
   // Second state
   const [secondState, setSecondState] = useState(0);
-
-  // Essentially I'll be creating an effect that utilizes both minuteState and secondState
-  // secondState will count up, once it reaches 59 the next iteration will reset it to 0
-  // in that reset, setMinuteState will be called and 1 will be added onto minuteState
 
   // useCallback is used to deal with having to use a  callback function for an effect
   // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
@@ -33,7 +32,7 @@ function App() {
       setSecondState((prevState) => {
         return prevState + 1;
       });
-    }, 100)
+    }, 1000);
 
     return () => {
       clearInterval(myTimer);
@@ -44,22 +43,24 @@ function App() {
   useEffect(() => {
     const startButton = document.querySelector('#start-button');
 
+    // Through this condition the event can only occur once.
+    // This is because secondState && minuteState will only be 0 (falsy) prior to calling handleStart.
+    if (!secondState && !minuteState) {
+      startButton.addEventListener('click', handleStart, {once: true});
+    }
+    // Reset secondState, increment minuteState
+    // This works because useEffect secondState is a dependency and every time it is changed this is checked.
     if (secondState === 59) {
       setSecondState(0);
       setMinuteState((prevState) => {
         return prevState + 1;
       })
     };
-
-    startButton.addEventListener('click', handleStart, {once: true});
-
-    // console.log(secondState);
-    console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
+    
     return () => {
       startButton.removeEventListener('click', handleStart);
     }
   }, [minuteState, secondState, handleStart])
-
 
   // Since waldo information is async, I thought useEffect might be most appropriate
   useEffect(() => {
@@ -112,6 +113,7 @@ function App() {
   // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
   // Takes a char argument which is used complementarily with the switch statement.
   function waldoButtonHandler(char) {
+    
     // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
     const foo = (waldo) => {
       if (!waldo) {
