@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
 import { useCallback, useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
+import { myImageHandler, returnCondition } from '../utils/helpers/App-helper';
 
 function App() {
 
@@ -69,25 +70,11 @@ function App() {
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
 
-    // Used for placing pointer targeting div onto image
-    function myImageHandler(e) {
-     if (waldoButtonContainer.style.visibility === 'visible') {
-        myPointer.style.display = 'none';
-        myPointer.style.visibility = 'hidden';
-        waldoButtonContainer.style.visibility = 'hidden';
-      } else {
-        let foo = e.offsetX - 25;
-        let bar = e.offsetY - 25;
-        myPointer.style.display = 'block';
-        waldoButtonContainer.style.visibility = 'visible';
-        myPointer.style.visibility = 'visible';
-        myPointer.style.left = foo + 'px';
-        myPointer.style.top = bar + 'px';
-        pointerState.top = bar;
-        pointerState.left = foo;
-        setPointerState({...pointerState});
-      }
-  }
+    // If I did const imageHandler = myImageHandler(waldoButtonContainer, myPointer, pointerState, setPointerState)
+    // There would be no way to include the event argument, by creating a HOC I'm able to use the imageHandler's e param
+    const imageHandler = function(e) {
+      return myImageHandler(waldoButtonContainer, myPointer, pointerState, setPointerState, e);
+    }
 
     function waldoButtonHandler(e) {
       waldoButtonContainer.style.visibility = 'hidden';
@@ -97,10 +84,10 @@ function App() {
       button.addEventListener('click', waldoButtonHandler)
     })
 
-    myImage.addEventListener('click', myImageHandler);
+    myImage.addEventListener('click', imageHandler);
 
     return function cleanup() {
-      myImage.removeEventListener('click', myImageHandler);
+      myImage.removeEventListener('click', imageHandler);
 
       waldoButtons.forEach((button) => {
         button.removeEventListener('click', waldoButtonHandler)
@@ -108,41 +95,29 @@ function App() {
     }
 
   }, [pointerState, childrenState]);
-  
 
   // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
   // Takes a char argument which is used complementarily with the switch statement.
   function waldoButtonHandler(char) {
-
-    // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
-    const foo = (waldo) => {
-      if (!waldo) {
-        console.log('has not loaded');
-        return;
-      } else {
-        return (pointerState.top >= (waldo.top - 20) && pointerState.top <= (waldo.top + 20) 
-        && pointerState.left >= (waldo.left - 20) && pointerState.left <= (waldo.left + 20))
-      }
-    };
 
     const [piranhaPlant, r2D2, bender] = myWaldosArray;
 
     // eslint-disable-next-line default-case
     switch (char) {
       case 'piranha plant':
-        if(foo(piranhaPlant, 20, 30)) {
+        if(returnCondition(piranhaPlant, pointerState)) {
           piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, piranhaPlant]);
         }
       break;
       case 'bender':
-        if(foo(bender, 20, 30)) {
+        if(returnCondition(bender, pointerState)) {
           bender.changePropValue(bender, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, bender]);
         }
       break;
       case 'R2D2':
-        if(foo(r2D2, 20, 30)) {
+        if(returnCondition(r2D2, pointerState)) {
           r2D2.changePropValue(r2D2, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, r2D2]);
         }

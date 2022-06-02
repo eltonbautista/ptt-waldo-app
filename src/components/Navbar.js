@@ -8,7 +8,6 @@ import styles from '../utils/styling-modules/Navbar.module.css';
 function Navbar(props) {
   const {seconds, minutes} = props;
 
-  // console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
   return (
     <nav data-navbar className={styles.navbar}>
       <div className={styles['navbar-div']}>
