@@ -1,13 +1,10 @@
-
 import '../modules/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImageContainer';
 import { useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
-import { Marker } from './PointerTarget';
 
 function App() {
-
   const initPointerState =
   {
     top: 0,
@@ -17,10 +14,11 @@ function App() {
   const [pointerState, setPointerState] = useState(initPointerState);
   // An array of my waldo objects, they will be passed down to the corresponding waldoButtonHandler
   // Each button handler will turn the passed down object's isSelected property to true if the parameters are within the pointer's bounds
-  const [waldoState, setWaldoState] = useState(myWaldosArray);
+  const [waldoState, setWaldoState] = useState([]);
   const [childrenState, setChildrenState] = useState([]);
 
   useEffect(() => {
+    setWaldoState(myWaldosArray);
     const myImage = document.querySelector('#universe113');
     const myPointer = document.querySelector('#pointer-target');
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
@@ -79,20 +77,29 @@ function App() {
     switch (char) {
       case 'piranha plant':
         if (foo(piranhaPlant, 20, 30)) {
-          setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: piranhaPlant.waldo, left: pointerState.left, top: pointerState.top }]);
+          if (!piranhaPlant.isSelected) {
+            setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: piranhaPlant.waldo, left: pointerState.left, top: pointerState.top }]);
+          }
         }
         break;
       case 'bender':
         if (foo(bender, 20, 30)) {
-          setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: bender.waldo, left: pointerState.left, top: pointerState.top }]);
+          if (!bender.isSelected) {
+            setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: bender.waldo, left: pointerState.left, top: pointerState.top }]);
+          }
         }
         break;
       case 'r2d2':
         if (foo(r2D2, 20, 30)) {
-          setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: r2D2.waldo, left: pointerState.left, top: pointerState.top }]);
+          if (!r2D2.isSelected) {
+            setChildrenState((prevState) => [...prevState, { myKey: new Date().getTime(), markerName: r2D2.waldo, left: pointerState.left, top: pointerState.top }]);
+          }
         }
         break;
+      default:
+        break;
     }
+    setWaldoState([...waldoState]);
   }
 
   return (

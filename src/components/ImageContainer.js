@@ -12,7 +12,7 @@ function ImgContainer(props) {
       <PointerTarget characters={characters} buttonHandler={buttonHandler} />
       {markerData.length > 0 ? markerData.map((data) => {
         return (
-          <Marker key={data.myKey} markerName={data.markerName} left={data.left} top={data.top} />
+          <Marker markerName={data.markerName} left={data.left} top={data.top} />
         )
       }) : null}
     </div>
