@@ -12,6 +12,7 @@ function Navbar() {
         <ImgInDiv src={plant} alt='piranha plant icon'></ImgInDiv>
         <ImgInDiv src={bender} alt='bender icon'></ImgInDiv>
         <ImgInDiv src={r2d2} alt='r2d2 icon'></ImgInDiv>
+        <button id="start-button" >START</button>
       </div>
       <div>Timer</div>
     </nav>

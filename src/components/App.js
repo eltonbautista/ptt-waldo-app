@@ -14,9 +14,46 @@ function App() {
 
   // Used to change where my target div is via style prop.
   const [pointerState, setPointerState] = useState(initPointerState);
-
   // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
+  // Minute state
+  const [minuteState, setMinuteState] = useState(0);
+  // Second state
+  const [secondState, setSecondState] = useState(0);
+
+  // Essentially I'll be creating an effect that utilizes both minuteState and secondState
+  // secondState will count up, once it reaches 59 the next iteration will reset it to 0
+  // in that reset, setMinuteState will be called and 1 will be added onto minuteState
+
+  useEffect(() => {
+    const startButton = document.querySelector('#start-button');
+
+    const startTimer = () => {
+      const myTimer = setInterval(() => {
+        setSecondState((prevState) => {
+          return prevState + 1;
+        });
+      }, 1000)
+      
+  
+      if (secondState === 59) {
+        setSecondState(0);
+        setMinuteState((prevState) => {
+          return prevState + 1;
+        })
+      }
+  
+      return () => {
+        clearInterval(myTimer);
+      }
+    };
+    // startTimer();
+    startButton.addEventListener('click', startTimer);
+
+
+    console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
+  }, [minuteState, secondState])
+
 
   // Since waldo information is async, I thought useEffect might be most appropriate
   useEffect(() => {
