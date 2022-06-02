@@ -3,7 +3,7 @@ import ImgInDiv from "./ImgInDiv";
 import plant from '../assets/plant.png';
 import r2d2 from '../assets/r2d2.png';
 import bender from '../assets/bender.png';
-import styles from '../modules/styling-modules/Navbar.module.css';
+import styles from '../utils/styling-modules/Navbar.module.css';
 
 function Navbar() {
   return (

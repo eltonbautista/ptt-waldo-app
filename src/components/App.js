@@ -1,6 +1,6 @@
-import '../modules/styling-modules/App.css';
+import '../utils/styling-modules/App.css';
 import Navbar from './Navbar';
-import ImgContainer from './ImageContainer';
+import ImgContainer from './ImgContainer';
 import { useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
 
@@ -12,21 +12,21 @@ function App() {
     left: 0,
   }
 
+  // Used to change where my target div is via style prop.
   const [pointerState, setPointerState] = useState(initPointerState);
-  // An array of my waldo objects, they will be passed down to the corresponding waldoButtonHandler
-  // Each button handler will turn the passed down object's isSelected property to true if the parameters are within the pointer's bounds
-  // const [waldoState, setWaldoState] = useState(myWaldosArray);
+
+  // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
 
-
+  // Since waldo information is async, I thought useEffect might be most appropriate
   useEffect(() => {
     const myImage = document.querySelector('#universe113');
     const myPointer = document.querySelector('#pointer-target');
     const waldoButtonContainer = document.querySelector('#waldo-button-container');
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
 
+    // Used for placing pointer targeting div onto image
     function myImageHandler(e) {
-
      if (waldoButtonContainer.style.visibility === 'visible') {
         myPointer.style.display = 'none';
         myPointer.style.visibility = 'hidden';
@@ -43,7 +43,6 @@ function App() {
         pointerState.left = foo;
         setPointerState({...pointerState});
       }
-
   }
 
     function waldoButtonHandler(e) {
@@ -58,16 +57,19 @@ function App() {
 
     return function cleanup() {
       myImage.removeEventListener('click', myImageHandler);
+
       waldoButtons.forEach((button) => {
         button.removeEventListener('click', waldoButtonHandler)
       })
     }
-  }, [pointerState]);
+
+  }, [pointerState, childrenState]);
   
 
   // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
+  // Takes a char argument which is used complementarily with the switch statement.
   function waldoButtonHandler(char) {
-    // A function that returns a conditional.
+    // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
     const foo = (waldo) => {
       if (!waldo) {
         console.log('has not loaded');
@@ -84,52 +86,23 @@ function App() {
     switch (char) {
       case 'piranha plant':
         if(foo(piranhaPlant, 20, 30)) {
+          piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, piranhaPlant]);
         }
       break;
       case 'bender':
         if(foo(bender, 20, 30)) {
+          bender.changePropValue(bender, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, bender]);
         }
       break;
       case 'R2D2':
         if(foo(r2D2, 20, 30)) {
+          r2D2.changePropValue(r2D2, 'isSelected', true);
           setChildrenState((prevState) => [...prevState, r2D2]);
         }
     } 
     
-
-
-    // if (char === 'piranha plant') {
-    //   if (foo(piranhaPlant, 20, 30)) {
-
-    //     if (!piranhaPlant.isSelected) {
-    //       setChildrenState((prevState) => [...prevState, piranhaPlant]);
-    //     }
-
-    //     piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
-    //   } 
-    // } else if (char === 'bender') {
-    //   if (foo(bender, 20, 30)) {
-    //     if (!bender.isSelected) {
-    //       setChildrenState((prevState) => [...prevState, bender]);
-    //     }
-
-    //     bender.changePropValue(bender, 'isSelected', true);
-    //   } 
-      
-    // } else if (char === 'R2D2') {
-    //   if (foo(r2D2, 20, 30)) {
-    //     if (!r2D2.isSelected) {
-    //       setChildrenState((prevState) => [...prevState, r2D2]);
-    //     }
-
-    //     r2D2.changePropValue(r2D2, 'isSelected', true);
-    //   }
-      
-    // }
-    
-    // setWaldoState([...waldoState]);
   }
   
   return (
