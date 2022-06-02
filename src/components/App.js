@@ -84,9 +84,9 @@ function App() {
       if (foo(piranhaPlant, 20, 30)) {
 
         if (!piranhaPlant.isSelected) {
-          setChildrenState((prevState) => [...prevState, 
-            <Marker myKey={piranhaPlant.waldo} markerName={piranhaPlant.waldo} left={pointerState.left} top={pointerState.top} />]);
-            console.log(childrenState)
+          // setChildrenState((prevState) => [...prevState, 
+          //   <Marker myKey={piranhaPlant.waldo} markerName={piranhaPlant.waldo} left={pointerState.left} top={pointerState.top} />]);
+          setChildrenState((prevState) => [...prevState, piranhaPlant]);
         }
 
         piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
@@ -94,8 +94,9 @@ function App() {
     } else if (char === 'bender') {
       if (foo(bender, 20, 30)) {
         if (!bender.isSelected) {
-          setChildrenState([...childrenState, 
-          <Marker myKey={bender.waldo} markerName={bender.waldo} left={pointerState.left} top={pointerState.top} />]);
+          // setChildrenState([...childrenState, 
+          // <Marker myKey={bender.waldo} markerName={bender.waldo} left={pointerState.left} top={pointerState.top} />]);
+          setChildrenState((prevState) => [...prevState, bender]);
         }
 
         bender.changePropValue(bender, 'isSelected', true);
@@ -104,8 +105,9 @@ function App() {
     } else if (char === 'R2D2') {
       if (foo(r2D2, 20, 30)) {
         if (!r2D2.isSelected) {
-          setChildrenState([...childrenState, 
-          <Marker myKey={r2D2.waldo} markerName={r2D2.waldo} left={pointerState.left} top={pointerState.top} />]);
+          // setChildrenState([...childrenState, 
+          // <Marker myKey={r2D2.waldo} markerName={r2D2.waldo} left={pointerState.left} top={pointerState.top} />]);
+          setChildrenState((prevState) => [...prevState, r2D2]);
         }
 
         r2D2.changePropValue(r2D2, 'isSelected', true);

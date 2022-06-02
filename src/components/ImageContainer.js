@@ -6,12 +6,12 @@ import { Marker } from "./PointerTarget";
 
 function ImgContainer(props) {
   const { characters, clickCoords, buttonHandler, children } = props;
-
+  console.log(children)
   const mapList = () => {
-    return children.map((child) =>  {
+    return children.map((child, i) =>  {
       return (
-        <li key={child.props.myKey + 'test'}>
-          {child}
+        <li key={i}>
+          <Marker myKey={child.waldo} markerName={child.waldo} left={child.left} top={child.top} />
         </li>
       )
     })
