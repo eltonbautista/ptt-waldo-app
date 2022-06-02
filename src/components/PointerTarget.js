@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../modules/styling-modules/ImageContainer.module.css'
+import styles from '../utils/styling-modules/ImageContainer.module.css'
 
 function PointerTarget(props) {
   // const myButtonHandler = props.buttonHandler;
@@ -34,19 +34,19 @@ function PointerTarget(props) {
 }
 
 export function Marker(props) {
-  const { myKey, markerName, left, top } = props;
+  const { markerName, left, top } = props;
 
   const initialMarkerState = {
     position: 'absolute',
     width: '40px',
     height: '40px',
-    border: '3px solid green',
+    border: '5px solid blue',
     left,
     top,
   };
 
   return (
-    <div key={myKey} style={initialMarkerState} data-marker={markerName}></div>
+    <div style={initialMarkerState} data-marker={markerName}></div>
   )
 }
 
