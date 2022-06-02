@@ -1,7 +1,7 @@
 import '../utils/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
 
 function App() {
@@ -25,34 +25,40 @@ function App() {
   // secondState will count up, once it reaches 59 the next iteration will reset it to 0
   // in that reset, setMinuteState will be called and 1 will be added onto minuteState
 
+  // useCallback is used to deal with having to use a  callback function for an effect
+  // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
+  // Putting it in useCallback it will only be invoked once the handleStart is invoked.
+  const handleStart = useCallback(() => {
+    const myTimer = setInterval(() => {
+      setSecondState((prevState) => {
+        return prevState + 1;
+      });
+    }, 100)
+
+    return () => {
+      clearInterval(myTimer);
+    }
+  }, []);
+
+  // Initially I had the conditional (secondState === 59) in handleStart() but it did not work due to the dependency array [secondState]
   useEffect(() => {
     const startButton = document.querySelector('#start-button');
 
-    const startTimer = () => {
-      const myTimer = setInterval(() => {
-        setSecondState((prevState) => {
-          return prevState + 1;
-        });
-      }, 1000)
-      
-  
-      if (secondState === 59) {
-        setSecondState(0);
-        setMinuteState((prevState) => {
-          return prevState + 1;
-        })
-      }
-  
-      return () => {
-        clearInterval(myTimer);
-      }
+    if (secondState === 59) {
+      setSecondState(0);
+      setMinuteState((prevState) => {
+        return prevState + 1;
+      })
     };
-    // startTimer();
-    startButton.addEventListener('click', startTimer);
 
+    startButton.addEventListener('click', handleStart, {once: true});
 
+    // console.log(secondState);
     console.log(`${minuteState}: ${secondState < 10 ? '0' + secondState : secondState}`);
-  }, [minuteState, secondState])
+    return () => {
+      startButton.removeEventListener('click', handleStart);
+    }
+  }, [minuteState, secondState, handleStart])
 
 
   // Since waldo information is async, I thought useEffect might be most appropriate
