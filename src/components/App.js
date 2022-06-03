@@ -2,19 +2,15 @@ import '../utils/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
 import { useCallback, useEffect, useState } from 'react';
-import { myWaldosArray } from '../firebase/firebase-config';
+import { grabDocs } from '../firebase/firebase-config';
 import { myImageHandler, returnCondition } from '../utils/helpers/App-helper';
 
 function App() {
-
-  const initPointerState = 
-  {
-    top: 0,
-    left: 0,
-  }
+  // Information for my waldo objects, async data
+  const [myWaldosArray, setMyWaldosArray] = useState([]);
 
   // Used to change where my target div is via style prop.
-  const [pointerState, setPointerState] = useState(initPointerState);
+  const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
 
   // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
@@ -22,13 +18,15 @@ function App() {
   // State for navbar's timer
   const [timerState, setTimerState] = useState([0, 0]);
 
+  // Automatically render once async data arrives
   useEffect(() => {
-    if (timerState[0] === 59) {
-      setTimerState((prevState) => {
-          return [prevState[0] = 0, prevState[1] + 1];
-      })
-    };
-  }, [timerState]);
+    async function fetch() {
+      const req = await grabDocs();
+      setMyWaldosArray(req);
+    }
+    fetch();
+  }, []);
+  
 
   // useCallback is used to deal with having to use a  callback function for an effect
   // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
@@ -44,6 +42,16 @@ function App() {
       clearInterval(myTimer);
     }
   }, []);
+
+  // Used to build a proper minute & second timer
+  useEffect(() => {
+    if (timerState[0] === 59) {
+      setTimerState((prevState) => {
+          return [prevState[0] = 0, prevState[1] + 1];
+      })
+    };
+  }, [timerState]);
+
   // Used to start my app's timer
   function startButtonHandler(e) {
     if (!timerState[0] && !timerState[1]) {
@@ -76,7 +84,7 @@ function App() {
   return (
     <div className="App" data-testid='app' >
       <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
-      <ImgContainer characters={myWaldosArray} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
+      <ImgContainer characters={myWaldosArray} startCon={timerState} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
     </div>
   );
 }

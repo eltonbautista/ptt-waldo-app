@@ -5,8 +5,8 @@ import styles from '../utils/styling-modules/ImageContainer.module.css';
 import { Marker } from "./PointerTarget";
 
 function ImgContainer(props) {
-  const { characters, buttonHandler, children, imgHandler } = props;
-  
+  const { characters, buttonHandler, children, imgHandler, startCon } = props;
+
   const mapList = () => {
     return children.map((child, i) =>  {
       return (
@@ -19,7 +19,7 @@ function ImgContainer(props) {
 
   return (
     <div className={styles['universe-container']} data-img-container id="img-container">
-      <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={characters.length ? imgHandler : null} />
+      {startCon[0] ? <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={imgHandler} /> : null }
       <PointerTarget characters={characters} buttonHandler={buttonHandler} />
       {myList}
     </div>

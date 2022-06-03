@@ -19,10 +19,6 @@ export function myImageHandler(container, pointer, state, setState, e) {
    }
 }
 
-export const navbarFromWaldoButton = (e) => {
-  return e.target.parentElement.parentElement.parentElement.previousElementSibling;
-}
-
 // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
 export const returnCondition = (waldo, statePointer,) => {
   if (!waldo) {

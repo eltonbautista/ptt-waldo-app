@@ -10,7 +10,7 @@ function Navbar(props) {
   const [seconds, minutes] = timer;
   const [piranhaPlant, r2D2, bender] = characters;
 
-  if(!characters.length) {
+  if(!timer[0]) {
     return (
       <nav data-navbar className={styles.navbar}>
           <ImgInDiv src={plantImg} alt='piranha plant'></ImgInDiv>
