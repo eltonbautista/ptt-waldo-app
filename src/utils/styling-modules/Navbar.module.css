@@ -1,30 +1,69 @@
 .navbar {
   display: grid;
   justify-self: center;
-  grid-auto-flow: column;
+  /* grid-auto-flow: column; */
+  grid-template-columns: 1fr 0.3fr;
   background-color: rgba(255, 0, 0, 1);
   /* padding: 10px; */
   position: fixed;
   width: 100%;
+  margin: 0;
 }
 
 .navbar-div {
   display: grid;
   grid-auto-flow: column;
+  justify-items: center;
+  padding: 10px;
+}
+
+.navbar > div:last-of-type {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  justify-self: center;
+  color: white;
+  font-size: 30px;
 }
 
 .start-page {
   display: grid;
-  grid-auto-flow: column;
+
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
   width: 75vw;
   height: 75vh;
+  margin-top: 5vh;
   color: white;
   border: 1px solid white;
 }
 
+.start-page > div:first-of-type {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-around;
+  width: 60%;
+  
+  border: 1px solid white;
+  padding: 10px;
+}
+
 .start-page > div:last-of-type {
-  width: 200px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10vw;
+  align-items: center;
+}
+
+.start-page > div:last-of-type > div {
+  width: 300px;
   border: 2px solid blue;
   padding: 5px;
-  margin: 5px;
+}
+
+.start-page >div:last-of-type > button{
+  width: 10vw;
+  height: 10vh;
 }

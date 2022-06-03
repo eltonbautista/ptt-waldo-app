@@ -20,7 +20,6 @@ function PointerTarget({ buttonHandler, characters }) {
         <button onClick={(e) => buttonHandler(r2D2, e)} data-waldo>R2D2</button>
         <button onClick={(e) => buttonHandler(bender, e)} data-waldo>Bender</button>
       </div>
-      
     </div>
   )
 }
@@ -33,6 +32,8 @@ export function Marker(props) {
     width: '40px',
     height: '40px',
     border: '5px solid blue',
+    marginLeft: '5px',
+    marginTop: '5px',
     left,
     top,
   };
