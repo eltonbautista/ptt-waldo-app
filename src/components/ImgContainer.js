@@ -19,7 +19,7 @@ function ImgContainer(props) {
 
   return (
     <div className={styles['universe-container']} data-img-container id="img-container">
-      {startCon[0] ? <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={imgHandler} /> : null }
+      {!startCon[0] && !startCon[1] ? null : <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={imgHandler} /> }
       <PointerTarget characters={characters} buttonHandler={buttonHandler} />
       {myList}
     </div>

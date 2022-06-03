@@ -13,3 +13,18 @@
   grid-auto-flow: column;
 }
 
+.start-page {
+  display: grid;
+  grid-auto-flow: column;
+  width: 75vw;
+  height: 75vh;
+  color: white;
+  border: 1px solid white;
+}
+
+.start-page > div:last-of-type {
+  width: 200px;
+  border: 2px solid blue;
+  padding: 5px;
+  margin: 5px;
+}
