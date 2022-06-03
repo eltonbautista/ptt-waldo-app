@@ -103,33 +103,14 @@ function App() {
 
   }, [pointerState, childrenState]);
 
-  // Function used for each "waldo" button. This identifies if a "waldo" (piranha plant, bender, r2d2) has been "hit" or not.
-  // Takes a char argument which is used complementarily with the switch statement.
-  function waldoButtonHandler(char) {
-
-    const [piranhaPlant, r2D2, bender] = myWaldosArray;
-
-    // eslint-disable-next-line default-case
-    switch (char) {
-      case 'piranha plant':
-        if(returnCondition(piranhaPlant, pointerState)) {
-          piranhaPlant.changePropValue(piranhaPlant, 'isSelected', true);
-          setChildrenState((prevState) => [...prevState, piranhaPlant]);
-        }
-      break;
-      case 'bender':
-        if(returnCondition(bender, pointerState)) {
-          bender.changePropValue(bender, 'isSelected', true);
-          setChildrenState((prevState) => [...prevState, bender]);
-        }
-      break;
-      case 'R2D2':
-        if(returnCondition(r2D2, pointerState)) {
-          r2D2.changePropValue(r2D2, 'isSelected', true);
-          setChildrenState((prevState) => [...prevState, r2D2]);
-        }
-    } 
+  function waldoButtonHandler(data) {
     
+    if (returnCondition(data, pointerState)) {
+      setChildrenState((prevState) => [...prevState, data]);
+      data.changePropValue(data, 'isSelected', true);
+      return;
+    }
+      return null;
   }
   
   return (
