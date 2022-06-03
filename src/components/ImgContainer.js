@@ -6,8 +6,7 @@ import { Marker } from "./PointerTarget";
 
 function ImgContainer(props) {
   const { characters, buttonHandler, children, imgHandler } = props;
-
-  // Map <Marker /> onto <ImgContainer /> once a "waldo" is targeted. 
+  
   const mapList = () => {
     return children.map((child, i) =>  {
       return (
@@ -20,7 +19,7 @@ function ImgContainer(props) {
 
   return (
     <div className={styles['universe-container']} data-img-container id="img-container">
-      <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={imgHandler} />
+      <img className={styles['universe-image']} src={universe} alt='universe113' id="universe113" onClick={characters.length ? imgHandler : null} />
       <PointerTarget characters={characters} buttonHandler={buttonHandler} />
       {myList}
     </div>

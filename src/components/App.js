@@ -61,7 +61,7 @@ function App() {
   }
 
   // When a user clicks on a waldo button, a border will appear around a "waldo" if they've been properly selected
-  function waldoButtonHandler(data, e) {
+  function waldoButtonHandler(data, e, navRef) {
     const waldoButtonContainer = e.target.parentElement;
     const waldoIndex = myWaldosArray.indexOf(data);
 
@@ -71,16 +71,16 @@ function App() {
     if (returnCondition(data, pointerState)) {
       setChildrenState((prevState) => [...prevState, data]);
       data.changePropValue(data, 'isSelected', true);
-      navImages[waldoIndex].style.visibility = 'hidden';
+      // navImages[waldoIndex].style.visibility = 'hidden';
       return;
     }
       return null;
   };
-  
+
   // minutes={minuteState}
   return (
     <div className="App" data-testid='app' >
-      <Navbar timer={timerState}  buttonHandler={startButtonHandler} />
+      <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
       <ImgContainer characters={myWaldosArray} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
     </div>
   );
