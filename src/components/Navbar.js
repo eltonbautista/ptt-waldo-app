@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import ImgInDiv from "./ImgInDiv";
 import plantImg from '../assets/plant.png';
 import r2d2Img from '../assets/r2d2.png';

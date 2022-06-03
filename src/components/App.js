@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
 import { useCallback, useEffect, useState } from 'react';
 import { myWaldosArray } from '../firebase/firebase-config';
-import { myImageHandler, returnCondition, navbarFromWaldoButton } from '../utils/helpers/App-helper';
+import { myImageHandler, returnCondition } from '../utils/helpers/App-helper';
 
 function App() {
 
@@ -61,23 +61,18 @@ function App() {
   }
 
   // When a user clicks on a waldo button, a border will appear around a "waldo" if they've been properly selected
-  function waldoButtonHandler(data, e, navRef) {
+  function waldoButtonHandler(data, e) {
     const waldoButtonContainer = e.target.parentElement;
-    const waldoIndex = myWaldosArray.indexOf(data);
-
-    const navImages = navbarFromWaldoButton(e).children[0].children;
 
     waldoButtonContainer.style.visibility = 'hidden';
     if (returnCondition(data, pointerState)) {
       setChildrenState((prevState) => [...prevState, data]);
       data.changePropValue(data, 'isSelected', true);
-      // navImages[waldoIndex].style.visibility = 'hidden';
       return;
     }
       return null;
   };
 
-  // minutes={minuteState}
   return (
     <div className="App" data-testid='app' >
       <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
