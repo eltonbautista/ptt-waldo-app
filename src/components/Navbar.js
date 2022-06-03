@@ -6,7 +6,8 @@ import bender from '../assets/bender.png';
 import styles from '../utils/styling-modules/Navbar.module.css';
 
 function Navbar(props) {
-  const { seconds, minutes, buttonHandler } = props;
+  const { timer, buttonHandler } = props;
+  const [ seconds, minutes ] = timer;
 
   return (
     <nav data-navbar className={styles.navbar}>

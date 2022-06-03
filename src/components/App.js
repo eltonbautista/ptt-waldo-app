@@ -19,29 +19,24 @@ function App() {
   // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
 
-  // Minute state
-  const [minuteState, setMinuteState] = useState(0);
-
-  // Second state
-  const [secondState, setSecondState] = useState(0);
+  // State for navbar's timer
+  const [timerState, setTimerState] = useState([0, 0]);
 
   useEffect(() => {
-
-    if (secondState === 59) {
-      setSecondState(0);
-      setMinuteState((prevState) => {
-        return prevState + 1;
+    if (timerState[0] === 59) {
+      setTimerState((prevState) => {
+          return [prevState[0] = 0, prevState[1] + 1];
       })
     };
-  }, [secondState]);
+  }, [timerState]);
 
   // useCallback is used to deal with having to use a  callback function for an effect
   // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
   // Putting it in useCallback it will only be invoked when handleStart is invoked.
   const handleStart = useCallback(() => {
     const myTimer = setInterval(() => {
-      setSecondState((prevState) => {
-        return prevState + 1;
+      setTimerState((prevState) => {
+        return [prevState[0] + 1, prevState[1]];
       });
     }, 1000);
 
@@ -51,7 +46,7 @@ function App() {
   }, []);
   // Used to start my app's timer
   function startButtonHandler(e) {
-    if (!secondState && !minuteState) {
+    if (!timerState[0] && !timerState[1]) {
       handleStart();
     }
   }
@@ -82,10 +77,10 @@ function App() {
       return null;
   };
   
-  
+  // minutes={minuteState}
   return (
     <div className="App" data-testid='app' >
-      <Navbar seconds={secondState} minutes={minuteState} buttonHandler={startButtonHandler} />
+      <Navbar timer={timerState}  buttonHandler={startButtonHandler} />
       <ImgContainer characters={myWaldosArray} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
     </div>
   );
