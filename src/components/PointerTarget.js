@@ -16,9 +16,9 @@ function PointerTarget({ buttonHandler, characters }) {
   return (
     <div id="pointer-target" style={initialPointerState} data-pointer-target>
       <div id="waldo-button-container" className={styles['waldo-container']}>
-        <button onClick={() => buttonHandler(piranhaPlant)} data-waldo>Piranha Plant</button>
-        <button onClick={() => buttonHandler(r2D2)} data-waldo>R2D2</button>
-        <button onClick={() => buttonHandler(bender)} data-waldo>Bender</button>
+        <button onClick={(e) => buttonHandler(piranhaPlant, e)} data-waldo>Piranha Plant</button>
+        <button onClick={(e) => buttonHandler(r2D2, e)} data-waldo>R2D2</button>
+        <button onClick={(e) => buttonHandler(bender, e)} data-waldo>Bender</button>
       </div>
       
     </div>

@@ -6,7 +6,7 @@ import bender from '../assets/bender.png';
 import styles from '../utils/styling-modules/Navbar.module.css';
 
 function Navbar(props) {
-  const {seconds, minutes} = props;
+  const { seconds, minutes, buttonHandler } = props;
 
   return (
     <nav data-navbar className={styles.navbar}>
@@ -14,7 +14,7 @@ function Navbar(props) {
         <ImgInDiv src={plant} alt='piranha plant'></ImgInDiv>
         <ImgInDiv src={r2d2} alt='R2D2'></ImgInDiv>
         <ImgInDiv src={bender} alt='bender'></ImgInDiv>
-        <button id="start-button" >START</button>
+        <button id="start-button" onClick={buttonHandler} >START</button>
       </div>
       <div>{`${minutes}: ${seconds < 10 ? '0' + seconds : seconds}`}</div>
     </nav>

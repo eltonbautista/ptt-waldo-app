@@ -1,5 +1,6 @@
 // Whenever a user clicks on 'universe113' image this is fired
 export function myImageHandler(container, pointer, state, setState, e) {
+  
   if (container.style.visibility === 'visible') {
      pointer.style.display = 'none';
      pointer.style.visibility = 'hidden';
@@ -16,6 +17,10 @@ export function myImageHandler(container, pointer, state, setState, e) {
      state.left = foo;
      setState({...state});
    }
+}
+
+export const navbarFromWaldoButton = (e) => {
+  return e.target.parentElement.parentElement.parentElement.previousElementSibling;
 }
 
 // A function that returns a conditional, if clause uses falsy because arg "waldo" is an async value.
