@@ -24,6 +24,7 @@ function App() {
 
   // Second state
   const [secondState, setSecondState] = useState(0);
+  // use mod (%) to utilize one state. Once seconds reach 60, divide by 60, add to minutes, etc.
 
   // useCallback is used to deal with having to use a  callback function for an effect
   // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
@@ -71,7 +72,6 @@ function App() {
     const waldoButtons = document.querySelectorAll('button[data-waldo]');
     const navWaldoImages = [...document.querySelectorAll('div[data-waldo-div')];
 
-    // console.log(myWaldosArray);
     // If I did const imageHandler = myImageHandler(waldoButtonContainer, myPointer, pointerState, setPointerState)
     // There would be no way to include the event argument, by creating a HOC I'm able to use the imageHandler's e param
     const imageHandler = function(e) {
