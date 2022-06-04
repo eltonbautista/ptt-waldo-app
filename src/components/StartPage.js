@@ -1,8 +1,7 @@
 import React from "react";
 
 function StartPage({ children, myClass }) {
-
-  const [piranhaPlantComponent, r2D2Component, benderComponent, startButton] = children;
+ const [piranhaPlantComponent, r2D2Component, benderComponent, startButton] = children;
 
  return (
    <div id="start-page" className={myClass}>

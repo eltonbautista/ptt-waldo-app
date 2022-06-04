@@ -20,7 +20,10 @@ function Navbar(props) {
 
   if(!timer[0] && !timer[1]) {
     return (
-      <StartPage myClass={styles['start-page']} children={charactersComponents} />
+      <div id="start-container">
+        <div id='app-background'></div>
+        <StartPage myClass={styles['start-page']} children={charactersComponents} />
+      </div>
     )
   }
 

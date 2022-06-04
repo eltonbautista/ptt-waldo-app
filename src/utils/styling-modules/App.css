@@ -8,6 +8,27 @@ body {
 .App {
   position: relative;
   display: grid;
+  /* width: 100vw; */
+  /* height: 100vh; */
+  
+}
+
+#app-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  background-image: url('../../assets/universe.png');
+  background-position: start;
+  background-size: cover;
+  /* position: relative; */
+
+  /* z-index: -1; */
+  filter: blur(12px);
+  -webkit-filter: blur(12px);
+}
+
+#start-container {
+  display: grid;
 }
 
 #root {

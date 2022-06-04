@@ -29,15 +29,19 @@
 
 .start-page {
   display: grid;
-
+  background-color: black;
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
+  align-self: flex-end;
+  justify-self: center;
   width: 75vw;
   height: 75vh;
-  margin-top: 5vh;
   color: white;
   border: 1px solid white;
+  position: absolute;
+  opacity: 0.95;
+  /* z-index: 5; */
 }
 
 .start-page > div:first-of-type {
