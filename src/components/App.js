@@ -1,19 +1,20 @@
 import '../utils/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { grabDocs, sendScoreboardData } from '../firebase/firebase-config';
-import { myImageHandler, returnCondition } from '../utils/helpers/App-helper';
+import { myImageHandler, returnCondition, gameoverChecker } from '../utils/helpers/App-helper';
 import Scoreboard from './Scoreboard';
-import { Timestamp } from 'firebase/firestore';
 
 function App() {
+
   // Information for my waldo objects, async data
   const [myWaldosArray, setMyWaldosArray] = useState([]);
   const [scoreboardArray, setScoreboardArray] = useState([]);
 
   // Used to change where my target div is via style prop.
   const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
+  // const goodGame = gameoverChecker();
 
   // State that gets filled with 'targeted'.
   const [childrenState, setChildrenState] = useState([]);
@@ -24,33 +25,42 @@ function App() {
   // Input state
   const [inputState, setInputState] = useState('');
 
+  // Used to stop timer in the interval
+  // For some reason clearInterval() was not stopping myInterval.
+  const stopTimer = useRef(null);
   // Automatically render once async data arrives
   useEffect(() => {
     async function fetch() {
       const waldoData = await grabDocs('waldoRef');
       const scoreboardData = await grabDocs('scoreRef');
-      console.log(scoreboardData);
       setMyWaldosArray(waldoData);
       setScoreboardArray(scoreboardData);
     }
     fetch();
   }, []);
-  
 
   // useCallback is used to deal with having to use a  callback function for an effect
   // Initially everything I have inside my handleStart() was inside useEffect() which caused bugs because of mounting
   // Putting it in useCallback it will only be invoked when handleStart is invoked.
+  const myTimer = setInterval;
+
   const handleStart = useCallback(() => {
-    const myTimer = setInterval(() => {
+
+    myTimer(() => {
+      if (stopTimer.current === true) {
+        return;
+      }
+      
       setTimerState((prevState) => {
         return [prevState[0] + 1, prevState[1]];
       });
     }, 1000);
-
+    
     return () => {
       clearInterval(myTimer);
-    }
-  }, []);
+    };
+
+  }, [myTimer, ]);
 
   // Used to build a proper minute & second timer
   useEffect(() => {
@@ -59,7 +69,9 @@ function App() {
           return [prevState[0] = 0, prevState[1] + 1];
       })
     };
-  }, [timerState]);
+    // Once stopTimer becomes true handleStart's interval stops
+    stopTimer.current = gameoverChecker(myWaldosArray);
+  }, [timerState, myWaldosArray]);
 
   // Used to start my app's timer
   function startButtonHandler(e) {

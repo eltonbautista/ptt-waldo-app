@@ -29,3 +29,14 @@ export const returnCondition = (waldo, statePointer,) => {
     && statePointer.left >= (waldo.left - 20) && statePointer.left <= (waldo.left + 20))
   }
 };
+
+export const gameoverChecker = (arr) => {
+    if(arr.length ===0) {
+      return;
+    } else {
+      return arr.every((waldo) => {
+        return waldo.isSelected === true;
+      });
+    }
+
+}
