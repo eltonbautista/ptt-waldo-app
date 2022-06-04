@@ -1,16 +1,44 @@
 import React from "react";
 
-function Scoreboard({  }) {
-
+function Scoreboard({ userData, inputValue, inputHandler, submitHandler }) {
+  // User plays the game, they're sent to leaderboards, they input a name/anonymous and their score is stored.
+  // Once they submit input, then it is stored in state <- every time state is updated, this is added to a collection doc in Firestore
+  // User data is displayed by grabbing the stored data in Firestore collection
+  // I think I can use just FIRESTORE for this.
   // List that shows username/anonymous, and time required to finish
   // Properly order them
+  if (!userData) {
+    return (
+      <div>retrieving data</div>
+    )
+  };
+  const tempStyle = {
+    color: 'white'
+  }
+  const mapScoreboard = () => {
+    return userData.map((user) => {
+      return (
+        <li key={user.id} data-user-list>
+          <div style={tempStyle}>
+            <span>{user['user']}</span>
+            <span>{`${user.time[0]}: ${user.time[1] < 10 ? '0' + user.time[1] : user.time[1]}`}</span>
+          </div>
+        </li>
+      )
+    })
+  }
+  const userList = mapScoreboard();
 
   return (
     <div>
-      <li>
-        <span>Username</span>
-        <span>1:37</span>
-      </li>
+      <label htmlFor='scoreboard-input' >
+        What should we call you?
+        <input required onChange={inputHandler} value={inputValue} type='text' id='scoreboard-input'></input>
+        <button onClick={submitHandler} type="submit" >SUBMIT</button>
+      </label>
+      <ul>
+        {userList}
+      </ul>
     </div>
   )
 };

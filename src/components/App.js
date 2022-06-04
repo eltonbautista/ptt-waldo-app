@@ -2,12 +2,15 @@ import '../utils/styling-modules/App.css';
 import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
 import { useCallback, useEffect, useState } from 'react';
-import { grabDocs } from '../firebase/firebase-config';
+import { grabDocs, sendScoreboardData } from '../firebase/firebase-config';
 import { myImageHandler, returnCondition } from '../utils/helpers/App-helper';
+import Scoreboard from './Scoreboard';
+import { Timestamp } from 'firebase/firestore';
 
 function App() {
   // Information for my waldo objects, async data
   const [myWaldosArray, setMyWaldosArray] = useState([]);
+  const [scoreboardArray, setScoreboardArray] = useState([]);
 
   // Used to change where my target div is via style prop.
   const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
@@ -18,11 +21,17 @@ function App() {
   // State for navbar's timer
   const [timerState, setTimerState] = useState([0, 0]);
 
+  // Input state
+  const [inputState, setInputState] = useState('');
+
   // Automatically render once async data arrives
   useEffect(() => {
     async function fetch() {
-      const req = await grabDocs();
-      setMyWaldosArray(req);
+      const waldoData = await grabDocs('waldoRef');
+      const scoreboardData = await grabDocs('scoreRef');
+      console.log(scoreboardData);
+      setMyWaldosArray(waldoData);
+      setScoreboardArray(scoreboardData);
     }
     fetch();
   }, []);
@@ -81,10 +90,29 @@ function App() {
       return null;
   };
 
+  function inputHandler(e) {
+    const input = e.target;
+    setInputState((prevState) => {
+      return prevState = input.value;
+    });
+  }
+
+   function submitHandler(e) {
+    console.log(inputState);
+    if (!inputState) {
+      sendScoreboardData('Anonymous', timerState);
+      return;
+    } 
+    sendScoreboardData(`${inputState}`, timerState);
+  };
+
   return (
     <div className="App" data-testid='app' >
       <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
+
       <ImgContainer characters={myWaldosArray} startCon={timerState} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
+      
+      <Scoreboard inputValue={inputState} inputHandler={inputHandler} submitHandler={submitHandler} userData={scoreboardArray} />
     </div>
   );
 }
