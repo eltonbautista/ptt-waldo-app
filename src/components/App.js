@@ -22,8 +22,9 @@ function App() {
   // State for navbar's timer
   const [timerState, setTimerState] = useState([0, 0]);
 
-  // Input state
+  // Scoreboard states
   const [inputState, setInputState] = useState('');
+  const [disableButton, setDisableButton] = useState(false);
 
   // Used to stop timer in the interval
   // For some reason clearInterval() was not stopping myInterval.
@@ -48,6 +49,7 @@ function App() {
 
     myTimer(() => {
       if (stopTimer.current === true) {
+        clearInterval(myTimer);
         return;
       }
       
@@ -109,13 +111,18 @@ function App() {
     });
   }
 
-   function submitHandler(e) {
+   async function submitHandler(e) {
     console.log(inputState);
     if (!inputState) {
       sendScoreboardData('Anonymous', timerState);
       return;
-    } 
+    }
+
     sendScoreboardData(`${inputState}`, timerState);
+    const scoreboardData = await grabDocs('scoreRef');
+    setScoreboardArray(scoreboardData);
+    setInputState('');
+    setDisableButton(true);
   };
 
   return (
@@ -123,8 +130,8 @@ function App() {
       <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
 
       <ImgContainer characters={myWaldosArray} startCon={timerState} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
-      
-      <Scoreboard inputValue={inputState} inputHandler={inputHandler} submitHandler={submitHandler} userData={scoreboardArray} />
+
+      {gameoverChecker(myWaldosArray) ? <Scoreboard inputValue={inputState} inputHandler={inputHandler} submitHandler={submitHandler} userData={scoreboardArray} disableButton={disableButton} /> : null }
     </div>
   );
 }
