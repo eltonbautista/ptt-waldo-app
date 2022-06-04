@@ -61,7 +61,7 @@ function App() {
     };
 
   }, [myTimer, ]);
-
+  
   // Used to build a proper minute & second timer
   useEffect(() => {
     if (timerState[0] === 59) {
