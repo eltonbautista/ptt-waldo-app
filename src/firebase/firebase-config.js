@@ -4,6 +4,9 @@ import {
   getFirestore,
   collection,
   getDocs,
+  setDoc,
+  addDoc,
+  doc,
 } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,27 +28,43 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Collection ref
-const colRef = collection(db, 'waldos');
+const waldoRef = collection(db, 'waldos');
+const scoreRef = collection(db, 'scoreboard');
 
 // Method for changing isSelected property to true;
 const changePropValue = function(obj, propertyString, newValue) {
   obj[propertyString] = newValue;
 }
 
-// Get collection data
-export async function grabDocs() {
-  const bar = [];
+// Get 'waldos' collection data
+export async function grabDocs(collectionName, ) {
+  const dataArray = [];
   try {
-    const querySnapshot = await getDocs(colRef);
-    querySnapshot.forEach((doc) => {
-       bar.push({...doc.data(), id: doc.id, changePropValue})
-    });
-    return bar;
+    if (collectionName === 'waldoRef') {
+      const querySnapshot = await getDocs(waldoRef);
+      querySnapshot.forEach((doc) => {
+        dataArray.push({...doc.data(), id: doc.id, changePropValue})
+     });
+    } else if (collectionName === 'scoreRef') {
+      const querySnapshot = await getDocs(scoreRef);
+      querySnapshot.forEach((doc) => {
+        dataArray.push({...doc.data(), id: doc.id, changePropValue})
+     });
+    }
+    
+    return dataArray;
   } catch {
     console.log('An error has occurred whilst trying to retrieve information...')
   }
 
 }
-grabDocs();
+// setDoc(document, document data)
+// doc(database, collection, id) <= if you want random id, don't add id arg
+export async function sendScoreboardData(user, time) {
+  await addDoc(collection(db, 'scoreboard'), {
+    user,
+    time,
+  })
+}
 
-
+// sendScoreboardData('Stanley');
