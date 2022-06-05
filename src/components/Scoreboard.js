@@ -15,8 +15,28 @@ function Scoreboard({ userData, inputValue, inputHandler, submitHandler, disable
   const tempStyle = {
     color: 'white'
   }
+
+  // Sort scores in descending order
+  const descendingScores = () => {
+
+    const newArr = userData.sort((a, b) => {
+      const aTotal = a.time[0] + a.time[1];
+      const bTotal = b.time[0] + b.time[1];
+      if (aTotal < bTotal) {
+        return -1;
+      } else if (aTotal > bTotal) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return newArr;
+  };
+
+  const orderedUserData = descendingScores();
+
   const mapScoreboard = () => {
-    return userData.map((user) => {
+    return orderedUserData.map((user) => {
       return (
         <li key={user.id} data-user-list>
           <div style={tempStyle}>
