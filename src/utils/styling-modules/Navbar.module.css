@@ -1,10 +1,8 @@
 .navbar {
   display: grid;
+  background-color: rgba(165, 42, 42);
   justify-self: center;
-  /* grid-auto-flow: column; */
   grid-template-columns: 1fr 0.3fr;
-  background-color: rgba(255, 0, 0, 1);
-  /* padding: 10px; */
   position: fixed;
   width: 100%;
   margin: 0;
@@ -15,6 +13,13 @@
   grid-auto-flow: column;
   justify-items: center;
   padding: 10px;
+  /* position: fixed; */
+  /* background-color: blue;
+  margin-top: 3.5%; */
+  /* margin-left: 5.25%; */
+  /* left: 15%;
+  gap: 10%;
+  width: 30%; */
 }
 
 .navbar > div:last-of-type {
@@ -22,26 +27,41 @@
   justify-content: center;
   align-content: center;
   width: 100%;
+  /* height: fit-content; */
   justify-self: center;
   color: white;
-  font-size: 30px;
+  font-size: 50px;
+  font-family: monoSpace;
 }
+
+.img-icons {
+  width: 100%;
+  height: 100%;
+}
+
+.img-icon-div {
+  width: 90px;
+  height: 110px;
+}
+
+/* NAVBAR CHILD: START-PAGE */
 
 .start-page {
   display: grid;
-  background-color: black;
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
-  align-self: flex-end;
+  align-self: center;
   justify-self: center;
   width: 75vw;
   height: 75vh;
+
+  background-color: black;
   color: white;
-  border: 1px solid white;
+  border: 5px solid white;
   position: absolute;
   opacity: 0.95;
-  /* z-index: 5; */
+  border-radius: 20%;
 }
 
 .start-page > div:first-of-type {
@@ -49,9 +69,14 @@
   grid-auto-flow: column;
   justify-content: space-around;
   width: 60%;
-  
-  border: 1px solid white;
+  height: fit-content;
+  border: 1px solid blue;
+  border-radius: 15px;
+  box-shadow: -2px 2px 10px blue;
+  background-color: rgba(255, 255, 255, 0.158);
   padding: 10px;
+
+
 }
 
 .start-page > div:last-of-type {
@@ -62,12 +87,26 @@
 }
 
 .start-page > div:last-of-type > div {
-  width: 300px;
-  border: 2px solid blue;
+  width: 400px;
+  /* border: 2px solid blue; */
   padding: 5px;
+  font-family: spaceMono;
 }
 
 .start-page >div:last-of-type > button{
   width: 10vw;
   height: 10vh;
+
+  background-color: black;
+  color: white;
+  font-family: spaceMono;
+  font-size: 2em;
+  border-radius: 10px;
+  border: 0;
+}
+
+.start-page > div:last-of-type > button:hover {
+  color: red;
+  transform: rotate(20deg);
+  border: 2px solid red;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import universe from '../assets/universe.png'
 import PointerTarget from "./PointerTarget";
-import styles from '../utils/styling-modules/ImageContainer.module.css';
+import styles from '../utils/styling-modules/ImgContainer.module.css';
 import { Marker } from "./PointerTarget";
 
 function ImgContainer(props) {

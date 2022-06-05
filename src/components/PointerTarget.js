@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../utils/styling-modules/ImageContainer.module.css';
+import styles from '../utils/styling-modules/ImgContainer.module.css';
 
 function PointerTarget({ buttonHandler, characters }) {
   // const myButtonHandler = props.buttonHandler;

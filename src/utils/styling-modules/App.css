@@ -1,3 +1,8 @@
+@font-face {
+  font-family: spaceMono;
+  src: url('../../assets/fonts/Space_Mono/SpaceMono-Regular.ttf');
+}
+
 body {
   display: grid;
   justify-content: center;
@@ -8,9 +13,6 @@ body {
 .App {
   position: relative;
   display: grid;
-  /* width: 100vw; */
-  /* height: 100vh; */
-  
 }
 
 #app-background {
@@ -20,9 +22,6 @@ body {
   background-image: url('../../assets/universe.png');
   background-position: start;
   background-size: cover;
-  /* position: relative; */
-
-  /* z-index: -1; */
   filter: blur(12px);
   -webkit-filter: blur(12px);
 }

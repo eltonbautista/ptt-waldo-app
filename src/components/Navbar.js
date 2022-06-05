@@ -25,7 +25,7 @@ function Navbar(props) {
         <StartPage myClass={styles['start-page']} children={charactersComponents} />
       </div>
     )
-  }
+  };
 
     return (
       <nav data-navbar className={styles.navbar}>
@@ -34,7 +34,7 @@ function Navbar(props) {
           {!r2D2.isSelected ? r2D2Component : null}
           {!bender.isSelected ? benderComponent : null}
         </div>
-        <div>{`${minutes}: ${seconds < 10 ? '0' + seconds : seconds}`}</div>
+        <div>{`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`}</div>
       </nav>
     )
   
