@@ -29,9 +29,14 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Collection ref
-const waldoRef = collection(db, 'waldos');
-const scoreRef = collection(db, 'scoreboard');
-const profanityRef = collection(db, 'profanity');
+
+
+const collectionData =
+{
+  waldoRef: collection(db, 'waldos'),
+  scoreRef: collection(db, 'scoreboard'),
+  profanityRef: collection(db, 'profanity'),
+}
 
 // Method for changing isSelected property to true;
 const changePropValue = function(obj, propertyString, newValue) {
@@ -41,27 +46,15 @@ const changePropValue = function(obj, propertyString, newValue) {
 // Get 'waldos' collection data
 export async function grabDocs(collectionName, ) {
   const dataArray = [];
+  // let querySnapshot;
   try {
-    if (collectionName === 'waldoRef') {
-      const querySnapshot = await getDocs(waldoRef);
-      querySnapshot.forEach((doc) => {
-        dataArray.push({...doc.data(), id: doc.id, changePropValue})
-     });
-    } else if (collectionName === 'scoreRef') {
-      const querySnapshot = await getDocs(scoreRef);
-      querySnapshot.forEach((doc) => {
-        dataArray.push({...doc.data(), id: doc.id})
-     });
-    } else if (collectionName === 'profanityRef') {
-      const querySnapshot = await getDocs(profanityRef);
-      querySnapshot.forEach((doc) => {
-        dataArray.push({...doc.data(), id: doc.id})
-     });
-    } 
-    
+    const querySnapshot = await getDocs(collectionData[collectionName])
+    querySnapshot.forEach((doc) => {
+      dataArray.push({...doc.data(), id: doc.id, changePropValue})
+   })
     return dataArray;
   } catch {
-    console.log('An error has occurred whilst trying to retrieve information...')
+    console.log('An error has occurred whilst trying to retrieve information...');
   }
 
 }
