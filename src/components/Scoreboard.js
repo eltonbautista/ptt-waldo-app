@@ -7,13 +7,11 @@ function Scoreboard({ userData, inputValue, inputHandler, submitHandler, disable
   // I think I can use just FIRESTORE for this.
   // List that shows username/anonymous, and time required to finish
   // Properly order them
-  console.log(disableButton);
   if (!userData) {
     return (
       <div>retrieving data</div>
     )
   };
-  console.log(disableButton);
   const tempStyle = {
     color: 'white'
   }
@@ -22,8 +20,8 @@ function Scoreboard({ userData, inputValue, inputHandler, submitHandler, disable
       return (
         <li key={user.id} data-user-list>
           <div style={tempStyle}>
-            <span>{user['user']} </span>
-            <span>{`${user.time[1]} : ${user.time[0] < 10 ? '0' + user.time[0] : user.time[0]}`}</span>
+            <span>{user.user} </span>
+            <span>{`${user.time[1]}:${user.time[0] < 10 ? '0' + user.time[0] : user.time[0]}`}</span>
           </div>
         </li>
       )
@@ -32,15 +30,23 @@ function Scoreboard({ userData, inputValue, inputHandler, submitHandler, disable
   const userList = mapScoreboard();
 
   return (
-    <div>
-      <label htmlFor='scoreboard-input' >
-        What should we call you?
-        <input required onChange={inputHandler} value={inputValue} type='text' id='scoreboard-input'></input>
-        <button disabled={disableButton} onClick={submitHandler} type="submit" >SUBMIT</button>
-      </label>
-      <ul>
-        {userList}
-      </ul>
+    <div id='scoreboard'>
+    <div id='background'></div>
+      <div id='scoreboard-container'>
+        {!disableButton ? 
+        <label htmlFor='scoreboard-input' >
+          What should we call you?
+          <input required onChange={inputHandler} value={inputValue} type='text' id='scoreboard-input'></input>
+          <button disabled={disableButton} onClick={submitHandler} type="submit" id='scoreboard-button' >SUBMIT</button>
+        </label> : <div id="thanks-div">Thanks for playing {inputValue}!</div>}
+        
+        <div id="list-container">
+          <ul id="scoreboard-ul">
+            {userList}
+          </ul>
+        </div>
+
+      </div>
     </div>
   )
 };

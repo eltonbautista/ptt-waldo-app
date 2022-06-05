@@ -7,7 +7,7 @@ import styles from '../utils/styling-modules/Navbar.module.css';
 import StartPage from "./StartPage";
 
 function Navbar(props) {
-  const { timer, buttonHandler, characters } = props;
+  const { timer, buttonHandler, characters, gameover } = props;
   const [seconds, minutes] = timer;
   const [piranhaPlant, r2D2, bender] = characters;
   const charactersComponents = 
@@ -18,6 +18,7 @@ function Navbar(props) {
 
   const [piranhaPlantComponent, r2D2Component, benderComponent] = charactersComponents;
 
+  // If player hasn't clicked startButton
   if(!timer[0] && !timer[1]) {
     return (
       <div id="start-container">
@@ -28,13 +29,24 @@ function Navbar(props) {
   };
 
     return (
-      <nav data-navbar className={styles.navbar}>
-        <div className={styles['navbar-div']}>
-          {!piranhaPlant.isSelected ? piranhaPlantComponent : null}
-          {!r2D2.isSelected ? r2D2Component : null}
-          {!bender.isSelected ? benderComponent : null}
-        </div>
-        <div>{`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`}</div>
+      <nav data-navbar className={styles['navbar-gameover']}>
+
+        {!gameover(characters) ?
+        <nav data-navbar className={styles.navbar}>
+          <div className={styles['navbar-div']}>
+            {!piranhaPlant.isSelected && piranhaPlantComponent}
+            {!r2D2.isSelected && r2D2Component}
+            {!bender.isSelected && benderComponent}
+          </div>
+          <div>{`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`}</div> 
+        </nav>
+      : 
+        <div>
+          <span className={styles['congrats-span']}>
+            Congratulations! You finished in {`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`}
+          </span>
+        </div> }
+
       </nav>
     )
   

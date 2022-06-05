@@ -34,6 +34,7 @@ export function Marker(props) {
     border: '5px solid blue',
     marginLeft: '5px',
     marginTop: '5px',
+    zIndex: '0',
     left,
     top,
   };

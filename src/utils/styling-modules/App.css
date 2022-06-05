@@ -33,3 +33,105 @@ body {
 #root {
   position: absolute;
 }
+
+#background {
+  background-image: url('../../assets/universe.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  height: 100vh;
+  width: 100vw;
+}
+
+#scoreboard {
+  position: fixed;
+  
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
+  align-self: start;
+  justify-self: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 5vh;
+  gap: 5%;
+}
+
+#scoreboard-container {
+  position: fixed;
+  background-color: blue;
+
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
+  align-self: start;
+  justify-self: center;
+  min-width: 75%;
+  min-height: 75%;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 5vh;
+  gap: 5%;
+  border-radius: 20px;
+  box-shadow: 0.6em 0.6em 1em white;
+}
+
+#scoreboard-container > label {
+  align-self: end;
+  justify-self: center;
+  color: white;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  font-family: monoSpace;
+  font-size: 30px;
+}
+
+#scoreboard-input {
+  font-size: 24px;
+  font-family: monoSpace;
+  border: none;
+}
+
+#scoreboard-button {
+  font-size: 24px;
+  font-family: monospace;
+}
+
+#list-container {
+  display: grid;
+  border: 3px dashed white;
+  min-width: 50%;
+  min-height: 50%;
+  width: fit-content;
+  height: fit-content;
+  justify-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#scoreboard-ul {
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  font-family: monoSpace;
+  width: fit-content;
+  height: fit-content;
+  gap: 10px;
+  justify-items: start;
+  justify-self: center;
+  padding: 0 1vw 0 1vw;
+}
+
+li[data-user-list] {
+  text-decoration: none;
+  list-style: none;
+  font-size: 24px;
+}
+
+#thanks-div {
+  justify-self: center;
+  font-family: monoSpace;
+  font-size: 3em;
+  color: white;
+  margin-top: 1vh;
+}

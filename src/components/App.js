@@ -12,11 +12,11 @@ function App() {
   const [myWaldosArray, setMyWaldosArray] = useState([]);
   const [scoreboardArray, setScoreboardArray] = useState([]);
 
-  // Used to change where my target div is via style prop.
+  // Used to change where my target div is via style prop
   const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
   // const goodGame = gameoverChecker();
 
-  // State that gets filled with 'targeted'.
+  // State that gets filled with 'targeted'
   const [childrenState, setChildrenState] = useState([]);
 
   // State for navbar's timer
@@ -27,9 +27,10 @@ function App() {
   const [disableButton, setDisableButton] = useState(false);
 
   // Used to stop timer in the interval
-  // For some reason clearInterval() was not stopping myInterval.
+  // For some reason clearInterval() was not stopping myInterval
   const stopTimer = useRef(null);
-  // Automatically render once async data arrives
+
+  // Automatically re-render once async data arrives
   useEffect(() => {
     async function fetch() {
       const waldoData = await grabDocs('waldoRef');
@@ -112,7 +113,6 @@ function App() {
   }
 
    async function submitHandler(e) {
-    console.log(inputState);
     if (!inputState) {
       sendScoreboardData('Anonymous', timerState);
       return;
@@ -121,17 +121,39 @@ function App() {
     sendScoreboardData(`${inputState}`, timerState);
     const scoreboardData = await grabDocs('scoreRef');
     setScoreboardArray(scoreboardData);
-    setInputState('');
     setDisableButton(true);
   };
 
   return (
     <div className="App" data-testid='app' >
-      <Navbar timer={timerState}  buttonHandler={startButtonHandler} characters={myWaldosArray} />
 
-      <ImgContainer characters={myWaldosArray} startCon={timerState} buttonHandler={waldoButtonHandler} clickCoords={pointerState} children={childrenState} imgHandler={universeImgHandler}/>
+      <Navbar 
+      timer={timerState}  
+      buttonHandler={startButtonHandler} 
+      characters={myWaldosArray} 
+      gameover={gameoverChecker} 
+      />
 
-      {gameoverChecker(myWaldosArray) ? <Scoreboard inputValue={inputState} inputHandler={inputHandler} submitHandler={submitHandler} userData={scoreboardArray} disableButton={disableButton} /> : null }
+      <ImgContainer 
+      characters={myWaldosArray} 
+      startCon={timerState} 
+      buttonHandler={waldoButtonHandler} 
+      clickCoords={pointerState} 
+      children={childrenState} 
+      imgHandler={universeImgHandler} 
+      />
+
+      {gameoverChecker(myWaldosArray) ? 
+      <Scoreboard 
+      inputValue={inputState} 
+      inputHandler={inputHandler} 
+      submitHandler={submitHandler} 
+      userData={scoreboardArray} 
+      disableButton={disableButton} 
+      /> 
+      :
+      null}
+      
     </div>
   );
 }
