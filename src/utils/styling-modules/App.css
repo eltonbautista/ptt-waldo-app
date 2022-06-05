@@ -97,8 +97,13 @@ body {
 }
 
 #list-container {
+  
   display: grid;
   border: 3px dashed white;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  'name time'
+  'user user';
   min-width: 50%;
   min-height: 50%;
   width: fit-content;
@@ -106,31 +111,75 @@ body {
   justify-self: center;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  font-size: 32px;
+  color: white;
+  font-family: monoSpace;
+  padding-top: 1vh;
 }
 
 #scoreboard-ul {
   text-decoration: none;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: start;
   font-family: monoSpace;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
+  justify-items: center;
+  padding: 0;
+  grid-area: user;
   gap: 10px;
-  justify-items: start;
+}
+
+#list-container > span:first-of-type {
   justify-self: center;
-  padding: 0 1vw 0 1vw;
+  grid-area: name;
+  border-bottom: 3px solid white;
+}
+
+#list-container > span:last-of-type {
+  justify-self: center;
+  grid-area: time;
+  border-bottom: 3px solid white;
 }
 
 li[data-user-list] {
   text-decoration: none;
   list-style: none;
   font-size: 24px;
+  width: 100%;
+  
 }
 
-#scoreboard-ul > li:nth-child(3n + 2) {
-  justify-self: center;
+/* First place */
+
+#scoreboard-ul > li:nth-child(1) > div > span:nth-child(1)::after {
+  content: '';
+  background-image: url('../../assets/crown.png');
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: 30px;
+  vertical-align: bottom;
 }
+
+li[data-user-list] > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+li[data-user-list] > div > span {
+justify-self: start;
+padding-left: 37%;
+}
+
+li[data-user-list] > div > span:last-of-type {
+  justify-self: start;
+  padding-left: 42%;
+  }
+
 
 #thanks-div {
   justify-self: center;

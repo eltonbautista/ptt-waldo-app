@@ -4,7 +4,7 @@ Bender: https://icons8.com/icon/YV_2mLwXMWyM/futurama-bender" by Icons 8
 
 Moons by Zoltan Tasi: https://unsplash.com/photos/HQPJEEjHqSE?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
 
-
+Crown by RIkas Dzihab - Flaticon "https://www.flaticon.com/free-icons/monarchy"
 
 
 

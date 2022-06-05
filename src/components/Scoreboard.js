@@ -61,6 +61,8 @@ function Scoreboard({ userData, inputValue, inputHandler, submitHandler, disable
         </label> : <div id="thanks-div">Thanks for playing {inputValue}!</div>}
         
         <div id="list-container">
+          <span>Name</span>
+          <span>Time</span>
           <ul id="scoreboard-ul">
             {userList}
           </ul>
