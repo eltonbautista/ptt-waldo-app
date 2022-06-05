@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import ImgContainer from './ImgContainer';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { grabDocs, sendScoreboardData } from '../firebase/firebase-config';
-import { myImageHandler, returnCondition, gameoverChecker } from '../utils/helpers/App-helper';
+import { myImageHandler, returnCondition, gameoverChecker, filterBadWords } from '../utils/helpers/App-helper';
 import Scoreboard from './Scoreboard';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   // Information for my waldo objects, async data
   const [myWaldosArray, setMyWaldosArray] = useState([]);
   const [scoreboardArray, setScoreboardArray] = useState([]);
-
+  const [profanityArray, setProfanityArray] = useState([]);
   // Used to change where my target div is via style prop
   const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
   // const goodGame = gameoverChecker();
@@ -30,13 +30,16 @@ function App() {
   // For some reason clearInterval() was not stopping myInterval
   const stopTimer = useRef(null);
 
-  // Automatically re-render once async data arrives
+  // Automatically re-render ONCE async data arrives
   useEffect(() => {
     async function fetch() {
       const waldoData = await grabDocs('waldoRef');
       const scoreboardData = await grabDocs('scoreRef');
+      const profanityData = await grabDocs('profanityRef')
+
       setMyWaldosArray(waldoData);
       setScoreboardArray(scoreboardData);
+      setProfanityArray(profanityData[0].profanity);
     }
     fetch();
   }, []);
@@ -113,15 +116,30 @@ function App() {
   }
 
    async function submitHandler(e) {
+    // If user enters a blank value in the input this is prompted
     if (!inputState) {
+      // eslint-disable-next-line no-restricted-globals
+      if (!confirm('Are you sure?')) {
+        return;
+      };
+    
       sendScoreboardData('Anonymous', timerState);
+      const scoreboardData = await grabDocs('scoreRef');
+      setScoreboardArray(scoreboardData);
+      setDisableButton(true);
       return;
     }
+    // If the input value is in my profanityArray then return;
+    const filteredState = filterBadWords(profanityArray, inputState);
+    if (!filteredState) {
+      return;
+    } else {
+      sendScoreboardData(`${inputState}`, timerState);
+      const scoreboardData = await grabDocs('scoreRef');
+      setScoreboardArray(scoreboardData);
+      setDisableButton(true);
+    }
 
-    sendScoreboardData(`${inputState}`, timerState);
-    const scoreboardData = await grabDocs('scoreRef');
-    setScoreboardArray(scoreboardData);
-    setDisableButton(true);
   };
 
   return (

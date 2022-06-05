@@ -29,7 +29,7 @@ export const returnCondition = (waldo, statePointer,) => {
     && statePointer.left >= (waldo.left - 20) && statePointer.left <= (waldo.left + 20))
   }
 };
-
+// Used to check if all my waldos have been selected
 export const gameoverChecker = (arr) => {
     if(arr.length ===0) {
       return;
@@ -40,3 +40,22 @@ export const gameoverChecker = (arr) => {
     }
 
 }
+// Used to filter bad words, if the input value is in my profanityArray then filteredInput will be set to false and returned
+export const filterBadWords = (arr, input) => {
+  // First "build" the input so that it can be checked against the arr
+  const buildWord = (word) => {
+    return word.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '').toLowerCase();
+  };
+  let filteredInput = buildWord(input);
+
+  // Compare filteredInput and each index of badWords array
+  arr.forEach(element => {
+    if (filteredInput === element) {
+      alert('No profanity!');
+      filteredInput = false;
+      return false;
+    } 
+  });
+
+  return filteredInput;
+};
