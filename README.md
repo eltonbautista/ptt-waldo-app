@@ -1,3 +1,35 @@
+# PTT Where's Waldo?
+### A photo-tagging application created with:
+- JS, ReactJS, and Vanilla CSS for front-end.
+- Firebase (BaaS) for back-end.
+- JestJS Testing Framework for testing.
+
+
+![image](https://user-images.githubusercontent.com/94667178/172160655-bf218bd8-36a0-4094-b84e-55b526d94ad0.png)
+
+<p align=center> 
+  
+[Demo](https://ptt-waldo.netlify.app/) **||**
+[Follow me on Twitter!](https://twitter.com/psychtotech)<img src=https://github.com/eltonbautista/memory-card/blob/main/src/assets/icons8-twitter.gif width="30px" height="30px" />**||**  [Connect with me on LinkedIn!](https://www.linkedin.com/in/elton-bautista-496a011ab/) <img src="https://github.com/eltonbautista/memory-card/blob/main/src/assets/icons8-linkedin.gif" width="30px" height="30px" />
+
+</p>
+
+
+### Project objectives:
+- Become familiar with back-end concepts such as, retrieving from, storing to, and/or editing existing data in a database.
+- Understand the interactions between client-side and server-side processes, as well as learn new information pertaining to dealing with security measures and authorization of stored data.
+- Increase my understanding of ReactJS, more specifically with regards to hooks, lifecycle, and performance optimization.
+
+### What I have learned:
+- There exists a fine line between trying to balance client-side and server-side interactions. During the early stages of this project I became aware that users would be able to spam/abuse the data being sent to one of my collections in Firestore. To combat this, I updated my security settings with appropriate measures that would disable users from adding new data to the collection.
+
+- Hooks and lifecycle are only a couple of the key concepts that one must understand in React to really take advantage of its performance capabilities. More specifically, utilizing particular hooks (or creating your own) in certain situations can significantly affect the performance of your application.
+ 
+- Furthermore, it is possible to increase performance by refactoring code, and sometimes it may be better to apply techniques/principles that are proven to work compared to trying to create something new. But, as someone who is trying to increase their understanding of programming concepts, techniques, and principles, trying new things can make the difference between becoming a better programmer and staying stagnant.
+
+
+- - - -
+
 Assets used:
 
 Bender: https://icons8.com/icon/YV_2mLwXMWyM/futurama-bender" by Icons 8
