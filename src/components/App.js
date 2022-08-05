@@ -13,8 +13,7 @@ function App() {
   const [scoreboardArray, setScoreboardArray] = useState([]);
   const [profanityArray, setProfanityArray] = useState([]);
   // Used to change where my target div is via style prop
-  const [pointerState, setPointerState] = useState( { top: 0,left: 0, } );
-  // const goodGame = gameoverChecker();
+  const [pointerState, setPointerState] = useState({ top: 0, left: 0, });
 
   // State that gets filled with 'targeted'
   const [childrenState, setChildrenState] = useState([]);
@@ -35,7 +34,7 @@ function App() {
     async function fetch() {
       const waldoData = await grabDocs('waldoRef');
       const scoreboardData = await grabDocs('scoreRef');
-      const profanityData = await grabDocs('profanityRef')
+      const profanityData = await grabDocs('profanityRef');
 
       setMyWaldosArray(waldoData);
       setScoreboardArray(scoreboardData);
@@ -56,24 +55,21 @@ function App() {
         clearInterval(myTimer);
         return;
       }
-      
       setTimerState((prevState) => {
         return [prevState[0] + 1, prevState[1]];
       });
     }, 1000);
-    
     return () => {
       clearInterval(myTimer);
     };
+  }, [myTimer,]);
 
-  }, [myTimer, ]);
-  
   // Used to build a proper minute & second timer
   useEffect(() => {
     if (timerState[0] === 59) {
       setTimerState((prevState) => {
-          return [prevState[0] = 0, prevState[1] + 1];
-      })
+        return [prevState[0] = 0, prevState[1] + 1];
+      });
     };
     // Once stopTimer becomes true handleStart's interval stops
     stopTimer.current = gameoverChecker(myWaldosArray);
@@ -91,7 +87,6 @@ function App() {
     const originalEvent = e.nativeEvent;
     const pointerTarget = e.target.parentElement.children[1];
     const waldoButtonContainer = pointerTarget.children[0];
-
     myImageHandler(waldoButtonContainer, pointerTarget, pointerState, setPointerState, originalEvent);
   }
 
@@ -105,7 +100,7 @@ function App() {
       data.changePropValue(data, 'isSelected', true);
       return;
     }
-      return null;
+    return null;
   };
 
   function inputHandler(e) {
@@ -115,14 +110,14 @@ function App() {
     });
   }
 
-   async function submitHandler(e) {
+  async function submitHandler(e) {
     // If user enters a blank value in the input this is prompted
     if (!inputState) {
       // eslint-disable-next-line no-restricted-globals
       if (!confirm('Are you sure?')) {
         return;
       };
-    
+
       sendScoreboardData('Anonymous', timerState);
       const scoreboardData = await grabDocs('scoreRef');
       setScoreboardArray(scoreboardData);
@@ -139,39 +134,38 @@ function App() {
       setScoreboardArray(scoreboardData);
       setDisableButton(true);
     }
-
   };
 
   return (
     <div className="App" data-testid='app' >
 
-      <Navbar 
-      timer={timerState}  
-      buttonHandler={startButtonHandler} 
-      characters={myWaldosArray} 
-      gameover={gameoverChecker} 
+      <Navbar
+        timer={timerState}
+        buttonHandler={startButtonHandler}
+        characters={myWaldosArray}
+        gameover={gameoverChecker}
       />
 
-      <ImgContainer 
-      characters={myWaldosArray} 
-      startCon={timerState} 
-      buttonHandler={waldoButtonHandler} 
-      clickCoords={pointerState} 
-      children={childrenState} 
-      imgHandler={universeImgHandler} 
+      <ImgContainer
+        characters={myWaldosArray}
+        startCon={timerState}
+        buttonHandler={waldoButtonHandler}
+        clickCoords={pointerState}
+        children={childrenState}
+        imgHandler={universeImgHandler}
       />
 
-      {gameoverChecker(myWaldosArray) ? 
-      <Scoreboard 
-      inputValue={inputState} 
-      inputHandler={inputHandler} 
-      submitHandler={submitHandler} 
-      userData={scoreboardArray} 
-      disableButton={disableButton} 
-      /> 
-      :
-      null}
-      
+      {gameoverChecker(myWaldosArray) ?
+        <Scoreboard
+          inputValue={inputState}
+          inputHandler={inputHandler}
+          submitHandler={submitHandler}
+          userData={scoreboardArray}
+          disableButton={disableButton}
+        />
+        :
+        null}
+
     </div>
   );
 }
